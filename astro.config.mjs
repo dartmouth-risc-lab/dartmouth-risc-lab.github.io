@@ -12,7 +12,7 @@ import remarkMath from "remark-math";
 // https://astro.build/config
 export default defineConfig({
   site: "https://rcweb.dartmouth.edu",
-  base: '/RISCLab/',
+  base: '/RISCLab',
   trailingSlash: "ignore",
   prefetch: {
     prefetchAll: true
