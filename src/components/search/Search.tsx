@@ -94,7 +94,7 @@ const SearchPage = ({ searchList }: Props) => {
               <div className="py-2 px-0" key={`search-${index}`}>
                 <div className="h-full glass col-10 lg:col-8 mx-auto rounded-lg p-4 intersect:animate-fade opacity-0">
                   <h4 className="mb-2">
-                    <a href={import.meta.env.BASE_URL + getPath(item)}>
+                    <a href={import.meta.env.BASE_URL + getPath(item).replace(/^\/+/, '')}>
                       {item.data.title}
                     </a>
                   </h4>
