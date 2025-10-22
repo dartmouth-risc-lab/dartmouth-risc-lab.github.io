@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 
 // Load image modules from src/assets/carousel/
-const imageModules = import.meta.glob('/src/assets/carousel/*.webp', {
+const imageModules = import.meta.glob('@assets/carousel/*.webp', {
   eager: true
 });
 
@@ -38,7 +38,7 @@ const images = Object.values(imageModules);
   ))}
 
 <script type="module">
-  import { initCarousel } from '/src/scripts/carousel.js';
+  import { initCarousel } from '@scripts/carousel.js';
 
   initCarousel();
 </script>
