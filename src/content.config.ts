@@ -1,4 +1,4 @@
-import { defineCollection, reference, z } from "astro:content";
+import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
 // May also need to update /src/types/index.d.ts when updating this file
@@ -11,9 +11,15 @@ const searchable = z.object({
   draft: z.boolean().default(false),
 });
 
-const about = z.object({
-  title: z.string().default(""),
-  description: z.string().default("")
+const about = defineCollection({
+  loader: glob({
+    pattern: "**/*.md",
+    base: "./src/content/about",
+  }),
+  schema: z.object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+  }),
 });
 
 const social = z.object({

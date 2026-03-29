@@ -23,6 +23,8 @@ This is the RISc Lab website, built using Atro with the [Astrogon](https://githu
 ## Adding Content
 Most of everything you will need to update is in the ```src/content``` and ```src/assets``` folders. 
 
+After you change frontmatter (especially `image:` paths) or add new entries, run `npx astro sync` or restart `npm run dev` so Astro regenerates its content asset cache (see `.astro/content-assets.mjs`).
+
 - ```src/content``` : markdown files that contain the content
 - ```src/assets``` : images in ```.webp``` format
 
