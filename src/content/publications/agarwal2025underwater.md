@@ -12,8 +12,10 @@ authors:
   - name: Charles Carver
     affiliation: Columbia
   - name: Alberto Quattrini Li
+    affiliation: Dartmouth
   - name: Xia Zhou   
   - name: Adithya Pediredla
+    affiliation: Dartmouth
 projectPage: "https://dartmouth-risc-lab.github.io/aocomm/"
 projectPdf: "https://dartmouth-risc-lab.github.io/aocomm/static/pdfs/paper.pdf"
 ---
