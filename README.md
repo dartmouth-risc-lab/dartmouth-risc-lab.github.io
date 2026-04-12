@@ -1,3 +1,5 @@
+# RISc Lab
+
 
 <div align="center">
   <img src="src/assets/logos/RISClogo-whiteoutline.svg" alt="RISc Logo" style="width: 50%;"/>
