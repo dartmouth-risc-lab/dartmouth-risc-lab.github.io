@@ -146,6 +146,10 @@ You may need to change the ```./public/CNAME``` and ```./public/robots.txt``` fi
 ```
 
 ## Deploy on Dartmouth Server:
+
+Just commit and push. Then check deployment errors on Github actions.
+
+<!-- 
 ### TO CONNECT TO THE REWEB ASSESTS:
 - RC Linux systems:      /dartfs/rc/lab/R/RISCLab
 - Mac Finder path:  smb://dartfs.dartmouth.edu/rc/lab/R/RISCLab
@@ -160,4 +164,4 @@ The original Astrogon documentation can be found in the folder ```./astrogon-doc
 
 ## License
 Astrogon is licensed under the [MIT License](LICENSE).
-
+ -->

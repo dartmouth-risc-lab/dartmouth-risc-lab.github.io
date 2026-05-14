@@ -1,0 +1,156 @@
+---
+import BaseLayout from "@components/base/BaseLayout.astro";
+import adithyaImage from "@assets/people/AP.webp";
+
+import { Content as BioContent } from "../../data/adithya-pediredla/bio.md";
+import { Content as AwardsContent } from "../../data/adithya-pediredla/awards.md";
+import { Content as PoemsContent } from "../../data/adithya-pediredla/poems.md";
+---
+
+<BaseLayout
+  title="Adithya Pediredla"
+  description="Profile page for Adithya Pediredla"
+>
+  <section class="section-sm">
+    <div class="container max-w-5xl">
+      <div class="grid gap-8 md:grid-cols-[240px_1fr] items-start">
+        <div>
+          <img
+            src={adithyaImage.src}
+            alt="Adithya Pediredla"
+            class="rounded-2xl shadow-md w-full"
+          />
+
+          <div class="mt-5 flex flex-wrap gap-3 justify-center">
+            <a class="profile-link" href="https://scholar.google.com/citations?user=ey6n20kAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
+              Google Scholar
+            </a>
+            <a class="profile-link" href="https://github.com/AdithyaPediredla" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+            <a class="profile-link" href="mailto:adithya.k.pediredla@gmail.com">
+              Email
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h1 class="text-4xl font-bold mb-2">Adithya Pediredla</h1>
+          <p class="text-lg mb-6 text-text dark:text-darkmode-text">
+            Assistant Professor, Department of Computer Science, Dartmouth College
+          </p>
+
+          <div class="flex flex-wrap gap-3 mb-8">
+            <button class="profile-tab active-tab" data-tab="bio">Bio</button>
+            <button class="profile-tab" data-tab="awards">Awards</button>
+            <button class="profile-tab" data-tab="cv">CV</button>
+            <button class="profile-tab" data-tab="poems">My తెలుగు Poems</button>
+          </div>
+
+          <div id="bio" class="tab-panel">
+            <h2 class="text-2xl font-semibold mb-4">Bio</h2>
+            <div class="profile-markdown">
+              <BioContent />
+            </div>
+          </div>
+
+          <div id="awards" class="tab-panel hidden">
+            <h2 class="text-2xl font-semibold mb-4">Awards</h2>
+            <div class="profile-markdown">
+              <AwardsContent />
+            </div>
+          </div>
+
+         <div id="cv" class="tab-panel hidden">
+        <h2 class="text-2xl font-semibold mb-4">CV</h2>
+        <a
+          class="profile-link"
+          href="https://www.dropbox.com/scl/fi/1t3we9nm1iwyvjxbbd7e1/Pediredla_CV.pdf?rlkey=ntj9ar6l4x6z2kcdphe1lb3o5&st=ye5h3tpx&raw=1"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View CV
+        </a>
+      </div>
+
+          <div id="poems" class="tab-panel hidden">
+            <h2 class="text-2xl font-semibold mb-4">My తెలుగు Poems</h2>
+            <div class="profile-markdown">
+              <PoemsContent />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const buttons = document.querySelectorAll(".profile-tab");
+    const panels = document.querySelectorAll(".tab-panel");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedTab = button.getAttribute("data-tab");
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("hidden", panel.id !== selectedTab);
+        });
+
+        buttons.forEach((btn) => btn.classList.remove("active-tab"));
+        button.classList.add("active-tab");
+      });
+    });
+  </script>
+  <style>
+  .profile-tab,
+  .profile-link {
+    border: 1px solid currentColor;
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+
+  .profile-tab:hover,
+  .profile-link:hover,
+  .active-tab {
+    background: #111827;
+    border-color: #111827;
+    color: #ffffff;
+  }
+
+  :global(.dark) .profile-tab:hover,
+  :global(.dark) .profile-link:hover,
+  :global(.dark) .active-tab {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #111827;
+  }
+
+  .profile-markdown :global(h3) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-markdown :global(ul) {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+
+  .profile-markdown :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-markdown :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  .profile-markdown :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>
+</BaseLayout>

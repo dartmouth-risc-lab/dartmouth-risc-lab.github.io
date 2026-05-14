@@ -4,6 +4,7 @@ image: "@assets/people/AP.webp"
 startYear: "2023"
 pronouns: "he/him"
 social: 
+    website: "/people/adithya-pediredla/"
     googleScholar: "https://scholar.google.co.in/citations?user=ey6n20kAAAAJ&hl=en"
     linkedIn: "https://www.linkedin.com/in/adithyapediredla/"
     email: "adithya.k.pediredla@dartmouth.edu"
