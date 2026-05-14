@@ -22,6 +22,8 @@ jobs:
       - uses: withastro/action@v3
         with:
           node-version: 22
+          package-manager: npm
+          install-command: npm install --legacy-peer-deps
 
   deploy:
     needs: build
