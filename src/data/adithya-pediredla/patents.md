@@ -1,0 +1,2 @@
+- R. Tadano, A. K. Pediredla, and A. Veeraraghavan, “Imaging device and Imaging control method,” U.S. Patent No. 10,230,874. 2019.
+- A. K. Pediredla, A. P. Kumar, and B. P. Simon, “Compressed 3D graphics rendering exploiting psychovisual properties,” U.S. Patent No. 9,710,959. 18 Jul. 2017.
