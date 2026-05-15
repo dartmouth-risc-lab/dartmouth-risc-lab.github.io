@@ -4,7 +4,7 @@ import { getCollection, getEntry } from "astro:content";
 const manualNewsEntry = await getEntry("news", "news");
 const manualNews = (manualNewsEntry?.data.news ?? []).map((item) => ({
   date: item.date,
-  type: "News",
+  type: "Update",
   title: item.title,
   link: "#",
   priority: 1,
