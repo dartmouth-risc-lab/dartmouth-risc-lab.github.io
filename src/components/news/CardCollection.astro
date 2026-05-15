@@ -1,48 +1,92 @@
 ---
-import NewsCard from "@/components/news/Card.astro";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
-const newsArticle = await getCollection("news");
+const manualNewsEntry = await getEntry("news", "news");
+const manualNews = (manualNewsEntry?.data.news ?? []).map((item) => ({
+  date: item.date,
+  type: "News",
+  title: item.title,
+  link: "#",
+  priority: 1,
+}));
 
-// Group by year
-const groupedNewsArticle: Record<string, typeof newsArticle> = {};
+const awardsEntry = await getEntry("awards", "awards");
+const awards = (awardsEntry?.data.awards ?? []).map((item) => ({
+  date: item.date,
+  type: "Award",
+  title: item.recipient ? `${item.title} — ${item.recipient}` : item.title,
+  link: "/awards/",
+  priority: 2,
+}));
 
-for (const pub of newsArticle) {
-  const rawDate = pub.data.date;
-  if (!rawDate) continue;
 
-  const pubDate = new Date(rawDate);
-  const year = pubDate.getFullYear().toString();
+const outreachEntry = await getEntry("outreach", "outreach");
+const outreach = (outreachEntry?.data.outreach ?? []).map((item) => ({
+  date: item.date,
+  type: "Outreach",
+  title: item.title,
+  link: "/outreach/",
+  priority: 3,
+}));
 
-  if (!groupedNewsArticle[year]) {
-    groupedNewsArticle[year] = [];
-  }
-  groupedNewsArticle[year].push(pub);
-}
+const presentationsEntry = await getEntry("presentations", "presentations");
+const presentations = (presentationsEntry?.data.presentations ?? []).map((item) => ({
+  date: item.date,
+  type: "Presentation",
+  title: item.presenter ? `${item.title} — ${item.presenter}` : item.title,
+  link: "/presentations/",
+  priority: 4,
+}));
 
-// Sort each year's newsArticle by month (descending)
-for (const year in groupedNewsArticle) {
-  groupedNewsArticle[year].sort((a, b) => {
-    const dateA = new Date(a.data.date).getTime();
-    const dateB = new Date(b.data.date).getTime();
-    return dateB - dateA; // Descending by full date
-  });
-}
+const publications = (await getCollection("publications")).map((entry) => ({
+  date: entry.data.date,
+  type: "Publication",
+  title: entry.data.title,
+  link: "/publications/",
+  priority: 5,
+}));
 
-// Sort years descending
-const sortedYears = Object.keys(groupedNewsArticle).sort((a, b) => Number(b) - Number(a));
+const patentsEntry = await getEntry("patents", "patents");
+const patents = (patentsEntry?.data.patents ?? []).map((item) => ({
+  date: item.date,
+  type: "Patent",
+  title: item.title,
+  link: "/patents/",
+  priority: 6,
+}));
+
+const allNews = [
+  ...manualNews,
+  ...awards,
+  ...outreach,
+  ...presentations,
+  ...publications,
+  ...patents,
+]
+  .filter((item) => item.date)
+  .sort((a, b) => {
+    const dateDiff = new Date(b.date).getTime() - new Date(a.date).getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return a.priority - b.priority;
+  })
+  .slice(0, 3);
 ---
 
 <section class="w-full mx-auto">
-    <h1 class="text-3xl font-bold mb-8 md:mb-[4rem] text-center md:text-left border-b border-border dark:border-darkmode-border">News</h1>
-    {sortedYears.map((year) => (
-    <div class="mb-12" key={year}>
-        <div class="flex flex-col gap-8">
-        {groupedNewsArticle[year].map((entry) => (
-            <NewsCard entry={entry} />
-        ))}
-        </div>
-    </div>
-    ))}
-</section>
+  <h1 class="text-3xl font-bold mb-8 md:mb-[4rem] text-center md:text-left border-b border-border dark:border-darkmode-border">
+    News
+  </h1>
 
+  <div class="space-y-3">
+    {allNews.map((entry) => (
+      <a
+        href={entry.link}
+        class="block border-b border-border dark:border-darkmode-border pb-3 hover:underline"
+      >
+        <span class="font-semibold">{entry.type}</span>
+        {" — "}
+        <span>{entry.title}</span>
+      </a>
+    ))}
+  </div>
+</section>

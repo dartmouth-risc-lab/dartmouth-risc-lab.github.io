@@ -9,104 +9,229 @@ interface Props {
   entries: PeopleEntry[];
 }
 
-const { peopleIndex, entries } = Astro.props;
+const { entries } = Astro.props;
 
-const groupAndSortByStartYear = (folderName: string, isAlumni: boolean) => {
-  return entries
-    .filter((entry) => {
-      // Must be in the specified folder
-      if (!entry.id.startsWith(`${folderName}/`)) return false;
+const today = new Date();
 
-      // Determine if this is considered alumni or not
-      const isEntryAlumni = entry.data.endYear !== "present";
-
-      return isAlumni ? isEntryAlumni : !isEntryAlumni;
-    })
-    .sort((a, b) => {
-      const aYear = parseInt(a.data.startYear) || 0;
-      const bYear = parseInt(b.data.startYear) || 0;
-      return aYear - bYear;
-    });
+const roleLabels = {
+  postdoc: "Postdoc",
+  phd: "PhD",
+  masters: "Masters",
+  undergraduates: "Undergraduate",
+  visitors: "Visitor",
 };
 
-const getProfessors = () => entries.filter((entry) => entry.id.startsWith(`professors/`));
+const getFolder = (entry) => entry.id.split("/")[0];
 
-const professors = getProfessors();
+const isFormer = (entry) => {
+  if (!entry.data.endDate) return false;
+  return new Date(entry.data.endDate) < today;
+};
 
-const groups = [
-  {
-    title: "Postdocs",
-    folder: "postdoc",
-  },
-  {
-    title: "PhD Students",
-    folder: "phd",
-  },
-  {
-    title: "Masters Students",
-    folder: "masters",
-  },
-  {
-    title: "Undergraduates",
-    folder: "undergraduates",
-  },
-];
+const sortByStartDateAsc = (a, b) =>
+  new Date(a.data.startDate).getTime() - new Date(b.data.startDate).getTime();
 
-const groupData = groups.map(({ folder }) => ({
-  students: groupAndSortByStartYear(folder, false), // current students
-  alumni: groupAndSortByStartYear(folder, true),    // alumni (have endYear)
-}));
+const sortByStartDateDesc = (a, b) =>
+  new Date(b.data.startDate).getTime() - new Date(a.data.startDate).getTime();
+
+const sortByEndDateDesc = (a, b) =>
+  new Date(b.data.endDate).getTime() - new Date(a.data.endDate).getTime();
+
+const professors = entries
+  .filter((entry) => getFolder(entry) === "professors")
+  .sort(sortByStartDateAsc);
+
+const currentByFolder = (folder) =>
+  entries
+    .filter((entry) => getFolder(entry) === folder && !isFormer(entry))
+    .sort(sortByStartDateAsc);
+
+const currentPostdocs = currentByFolder("postdoc");
+const currentPhds = currentByFolder("phd");
+const currentMasters = currentByFolder("masters");
+const currentUndergraduates = currentByFolder("undergraduates");
+
+const visitors = entries
+  .filter((entry) => getFolder(entry) === "visitors")
+  .sort(sortByStartDateDesc);
+
+const alumniByFolder = (folder) =>
+  entries
+    .filter(
+      (entry) =>
+        isFormer(entry) &&
+        getFolder(entry) === folder &&
+        entry.data.status === "graduated"
+    )
+    .sort(sortByEndDateDesc);
+
+const phdAlumni = alumniByFolder("phd");
+const postdocAlumni = alumniByFolder("postdoc");
+const mastersAlumni = alumniByFolder("masters");
+const undergraduateAlumni = alumniByFolder("undergraduates");
+
+const formerMembers = entries
+  .filter(
+    (entry) =>
+      isFormer(entry) &&
+      getFolder(entry) !== "visitors" &&
+      entry.data.status !== "graduated"
+  )
+  .sort(sortByEndDateDesc);
 ---
 
-<BaseLayout title={peopleIndex.data.title} description={peopleIndex.data.description}>
+<BaseLayout title="People" description="RISc Lab members">
   <section class="section-sm pb-0">
     <div class="container">
+      <div class="text-center mb-8 flex flex-wrap justify-center gap-x-4 gap-y-2">
+        {visitors.length > 0 && <a href="#visitors" class="text-sm underline opacity-80 hover:opacity-100">Visitors</a>}
+        {postdocAlumni.length > 0 && <a href="#postdoc-alumni" class="text-sm underline opacity-80 hover:opacity-100">Postdoc Alumni</a>}
+        {phdAlumni.length > 0 && <a href="#phd-alumni" class="text-sm underline opacity-80 hover:opacity-100">PhD Alumni</a>}
+        {mastersAlumni.length > 0 && <a href="#masters-alumni" class="text-sm underline opacity-80 hover:opacity-100">Masters Alumni</a>}
+        {undergraduateAlumni.length > 0 && <a href="#undergraduate-alumni" class="text-sm underline opacity-80 hover:opacity-100">Undergraduate Alumni</a>}
+        {formerMembers.length > 0 && <a href="#former-members" class="text-sm underline opacity-80 hover:opacity-100">Former Members</a>}
+      </div>
 
-      <h2
-        class="text-2xl
-        text-center md:text-left
-        font-semibold mb-8 ml-[1rem] mr-[1em]
-        md:ml-[6rem] md:mr-[6rem]
-        border-b border-border 
-        dark:border-darkmode-border">
-        Professors
+      <h2 class="text-2xl text-center font-semibold mb-8 border-b border-border dark:border-darkmode-border">
+        Principal Investigator
       </h2>
-      <div class="row justify-center">
+      <div class="flex flex-wrap justify-center gap-x-8 gap-y-6">
         {professors.map((entry) => <ProfessorCard entry={entry} />)}
       </div>
 
-      {groups.map(({ title }, i) => (
-        <>
-          <h2
-            class="text-2xl
-            text-center md:text-left
-            font-semibold mb-8 ml-[1rem] mr-[1rem] 
-            md:ml-[6rem] md:mr-[6rem]
-            border-b border-border dark:border-darkmode-border">
-            {title}
-          </h2>
-          <div class="row justify-center md:ml-[6rem] md:mr-[6rem]">
-            {groupData[i].students.map((entry) => <StudentCard entry={entry} />)}
-          </div>
-
-          {groupData[i].alumni.length > 0 && (
-            <>
-              <h2
-                class="text-xl
-                text-center md:text-left
-                font-semibold mt-10 mb-8 ml-[3rem] mr-[3rem]
-                md:ml-[8rem] md:mr-[8rem]
-                border-b border-border dark:border-darkmode-border">
-                Alumni
+      {(currentPostdocs.length > 0 || currentPhds.length > 0) && (
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:mx-[6rem] mt-8">
+          {currentPostdocs.length > 0 && (
+            <section>
+              <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+                Postdocs
               </h2>
-              <div class="row justify-center md:ml-[6rem] md:mr-[6rem]">
-                {groupData[i].alumni.map((entry) => <StudentCard entry={entry} />)}
+              <div class="flex flex-wrap justify-center gap-x-8 gap-y-6">
+                {currentPostdocs.map((entry) => <StudentCard entry={entry} />)}
               </div>
-            </>
+            </section>
           )}
-        </>
-      ))}
 
+          {currentPhds.length > 0 && (
+            <section>
+              <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+                PhD Students
+              </h2>
+              <div class="flex flex-wrap justify-center gap-x-8 gap-y-6">
+                {currentPhds.map((entry) => <StudentCard entry={entry} />)}
+              </div>
+            </section>
+          )}
+        </div>
+      )}
+
+      {(currentMasters.length > 0 || currentUndergraduates.length > 0) && (
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:mx-[6rem] mt-12">
+          {currentMasters.length > 0 && (
+            <section>
+              <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+                Masters Students
+              </h2>
+              <div class="flex flex-wrap justify-center gap-x-6 gap-y-5">
+                {currentMasters.map((entry) => <StudentCard entry={entry} compact />)}
+              </div>
+            </section>
+          )}
+
+          {currentUndergraduates.length > 0 && (
+            <section>
+              <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+                Undergraduates
+              </h2>
+              <div class="flex flex-wrap justify-center gap-x-6 gap-y-5">
+                {currentUndergraduates.map((entry) => <StudentCard entry={entry} compact />)}
+              </div>
+            </section>
+          )}
+        </div>
+      )}
+
+      {visitors.length > 0 && (
+        <section id="visitors" class="md:mx-[6rem] mt-12">
+          <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+            Visitors
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {visitors.map((entry) => (
+              <StudentCard entry={entry} listOnly roleLabel={roleLabels[getFolder(entry)]} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {postdocAlumni.length > 0 && (
+        <section id="postdoc-alumni" class="md:mx-[6rem] mt-16">
+          <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+            Postdoc Alumni
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {postdocAlumni.map((entry) => (
+              <StudentCard entry={entry} listOnly roleLabel="Postdoc" formerLabel="Alumni" />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {phdAlumni.length > 0 && (
+        <section id="phd-alumni" class="md:mx-[6rem] mt-16">
+          <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+            PhD Alumni
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {phdAlumni.map((entry) => (
+              <StudentCard entry={entry} listOnly roleLabel="PhD" formerLabel="Alumni" />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {mastersAlumni.length > 0 && (
+        <section id="masters-alumni" class="md:mx-[6rem] mt-12">
+          <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+            Masters Alumni
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {mastersAlumni.map((entry) => (
+              <StudentCard entry={entry} listOnly roleLabel="Masters" formerLabel="Alumni" />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {undergraduateAlumni.length > 0 && (
+        <section id="undergraduate-alumni" class="md:mx-[6rem] mt-12">
+          <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+            Undergraduate Alumni
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {undergraduateAlumni.map((entry) => (
+              <StudentCard entry={entry} listOnly roleLabel="Undergraduate" formerLabel="Alumni" />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {formerMembers.length > 0 && (
+        <section id="former-members" class="md:mx-[6rem] mt-12">
+          <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+            Former Members
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {formerMembers.map((entry) => (
+              <StudentCard
+                entry={entry}
+                listOnly
+                formerLabel="Former Lab Member"
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   </section>
 </BaseLayout>

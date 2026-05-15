@@ -6,6 +6,7 @@ import { Content as BioContent } from "../../data/adithya-pediredla/bio.md";
 import { Content as AwardsContent } from "../../data/adithya-pediredla/awards.md";
 import { Content as PoemsContent } from "../../data/adithya-pediredla/poems.md";
 import { Content as PublicationsContent } from "../../data/adithya-pediredla/old_publications.md";
+import { Content as TeachingContent } from "../../data/adithya-pediredla/teaching.md";
 
 import {Content as PatentContent} from "../../data/adithya-pediredla/patents.md";
 ---
@@ -60,12 +61,20 @@ import {Content as PatentContent} from "../../data/adithya-pediredla/patents.md"
             <button class="profile-tab" data-tab="cv">CV</button>
             <button class="profile-tab" data-tab="poems">My తెలుగు Poems</button>
             <button class="profile-tab" data-tab="patents">Patents</button>
+            <button class="profile-tab" data-tab="teaching">Teaching</button>
           </div>
 
           <div id="bio" class="tab-panel">
             <h2 class="text-2xl font-semibold mb-4">Bio</h2>
             <div class="profile-markdown">
               <BioContent />
+            </div>
+          </div>
+
+          <div id="teaching" class="tab-panel hidden">
+            <h2 class="text-2xl font-semibold mb-4">Teaching</h2>
+            <div class="profile-markdown">
+              <TeachingContent />
             </div>
           </div>
 

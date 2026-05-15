@@ -2,11 +2,10 @@
 import BaseLayout from "@components/base/BaseLayout.astro";
 import BannerBlock from "@components/base/BannerBlock.astro";
 // import AboutEntry from "@/components/home/AboutEntry.astro"; 
-import AwardsCollection from "@/components/awards/CollectionLayout.astro";
 import FundingEntry from "@/components/home/FundingEntry.astro"; 
 // import CollabEntry from "@/components/home/CollabEntry.astro"; 
 import NewsCollection from "@/components/news/CardCollection.astro";
-
+import AnnouncementBanner from "@components/announcements/Banner.astro";
 ---
 
 <BaseLayout>
@@ -15,6 +14,8 @@ import NewsCollection from "@/components/news/CardCollection.astro";
   <section class="section mb-[5rem] md:mb-[8rem]">
     <BannerBlock />
   </section>
+  <AnnouncementBanner />
+  
 
   <!-- About Section -->
   <!-- <section>
@@ -22,13 +23,7 @@ import NewsCollection from "@/components/news/CardCollection.astro";
       <AboutEntry/>
     </div>
   </section> -->
-
-  <!-- Awards Section -->
-  <section>
-    <div class="row flex mt-[3rem] px-[1rem] md:px-[3rem] lg:px-[6rem]">
-      <AwardsCollection/>
-    </div>
-  </section>
+  
   
   <!-- News Section -->
   <section>

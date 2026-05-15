@@ -1,7 +1,11 @@
 ---
 title: Atul Agarwal
 image: "@assets/people/AA.webp"
-startYear: "2024"
-endYear: "2025"
+status: "graduated"
+startDate: "2024-03-10"
+endDate: "2025-05-15"
+nextStop: "SE@Arista Networks"
 pronouns: "he/him"
+social: 
+    website: "https://www.linkedin.com/in/atulragarwal"
 ---

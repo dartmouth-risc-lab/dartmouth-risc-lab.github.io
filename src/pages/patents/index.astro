@@ -1,0 +1,48 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "@components/base/BaseLayout.astro";
+
+const entry = await getEntry("patents", "patents");
+const patents = entry?.data.patents ?? [];
+
+patents.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+---
+
+<BaseLayout title="Patents">
+  <section class="container py-10">
+    <h1 class="text-5xl font-bold mb-12 text-center">Patents</h1>
+
+    <div class="space-y-5 max-w-5xl mx-auto">
+  {patents.map((patent) => (
+    <article class="border-b border-border dark:border-darkmode-border pb-5">
+      <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+        {patent.link ? (
+          <a
+            href={patent.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xl font-semibold hover:underline"
+          >
+            {patent.title}
+          </a>
+        ) : (
+          <h2 class="text-xl font-semibold">{patent.title}</h2>
+        )}
+
+        {patent.status && (
+          <span class="text-sm uppercase tracking-wide opacity-70">
+            {patent.status}
+          </span>
+        )}
+      </div>
+
+      {patent.inventors && (
+        <p class="mt-2 text-sm leading-relaxed opacity-80">
+          {patent.inventors}
+        </p>
+      )}
+    </article>
+  ))}
+</div>
+  </section>
+</BaseLayout>

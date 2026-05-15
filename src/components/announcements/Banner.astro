@@ -1,0 +1,41 @@
+---
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("announcements", "announcements");
+const announcements = (entry?.data.announcements ?? [])
+  .filter((item) => item.active)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 2);
+---
+
+{announcements.length > 0 && (
+  <section class="container mb-4">
+    <div class="space-y-3">
+      {announcements.map((item) => (
+        <div class="relative overflow-hidden rounded-2xl border border-cyan-300/40 bg-gradient-to-r from-slate-950 via-cyan-950 to-slate-950 px-6 py-4 text-white shadow-lg">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.35),transparent_30%),radial-gradient(circle_at_80%_50%,rgba(59,130,246,0.35),transparent_30%)]"></div>
+
+          <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+            <div>
+              <p class="text-lg font-bold tracking-wide">
+                {item.title}
+              </p>
+              <p class="text-sm text-cyan-50/90">
+                {item.text}
+              </p>
+            </div>
+
+            {item.link && (
+              <a
+                href={item.link}
+                class="inline-flex w-fit rounded-full bg-white/15 px-4 py-2 text-sm font-semibold hover:bg-white/25 transition"
+              >
+                Learn more
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+)}

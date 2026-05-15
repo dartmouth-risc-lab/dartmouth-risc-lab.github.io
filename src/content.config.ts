@@ -33,50 +33,57 @@ const social = z.object({
 
 const people = defineCollection({
   loader: glob({
-    pattern: "**\/[^_]*.{md,mdx}",
+    pattern: "**/[!_-]*.{md,mdx}",
     base: "./src/content/people",
   }),
   schema: ({ image }) =>
     searchable.extend({
       title: z.string(),
-      image: image().optional(),
+      image: image().optional().or(z.null()).transform((v) => v ?? undefined),
       imageAlt: z.string().default(""),
-      startYear: z.string().default("2022"), 
-      endYear: z.string().default("present"),
-      pronouns: z.string().optional(),
-      social: social.optional()
+      startDate: z.string(),
+      endDate: z.string().nullish().transform((v) => v ?? ""),
+      status: z.string().nullish().transform((v) => v ?? ""),
+      nextStop: z.string().nullish().transform((v) => v ?? ""),
+      affiliation: z.string().nullish().transform((v) => v ?? ""),
+      pronouns: z.string().nullish().transform((v) => v ?? ""),
+      social: social.optional(),
     }),
 });
 
 const awards = defineCollection({
   loader: glob({
-    pattern: "**\/[^_]*.{md,mdx}",
+    pattern: "**/[^_]*.{md,mdx}",
     base: "./src/content/awards",
   }),
-  schema: ({ image }) =>
-    searchable.extend({
-      image: image().optional(),
-      imageAlt: z.string().default(""),
-      year: z.number().default(0),
-      title: z.string().default(""),
-      awardLink: z.string().url().optional(),
-      recipient: z.string().default(""),
-    }),
+  schema: searchable.extend({
+    title: z.string().default("Awards"),
+    awards: z.array(
+      z.object({
+        date: z.string(),
+        title: z.string(),
+        awardLink: z.string().url().optional().or(z.literal("")),
+        recipient: z.string(),
+        result: z.string(),
+      })
+    ).optional(),
+  }),
 });
 
 const news = defineCollection({
   loader: glob({
-    pattern: "**\/[^_]*.{md,mdx}",
+    pattern: "**/[^_]*.{md,mdx}",
     base: "./src/content/news",
   }),
-  schema: ({ image }) =>
-    searchable.extend({
-      image: image().optional(),
-      imageAlt: z.string().default(""),
-      title: z.string().default(""),
-      link: z.string().url().optional(),
-      date: z.date()
-    }),
+  schema: searchable.extend({
+    title: z.string(),
+    news: z.array(
+  z.object({
+    date: z.string(),
+    title: z.string(),
+  })
+).optional(),
+  }),
 });
 
 const publications = defineCollection({
@@ -114,6 +121,83 @@ const home = defineCollection({
     }),
 });
 
+const patents = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./src/content/patents",
+  }),
+  schema: searchable.extend({
+    title: z.string().default("Patents"),
+    patents: z.array(
+      z.object({
+        date: z.string(),
+        title: z.string(),
+        inventors: z.string().optional(),
+        status: z.string().optional(),
+        link: z.string().optional(),
+      })
+    ).optional(),
+  }),
+});
+
+const presentations = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./src/content/presentations",
+  }),
+  schema: searchable.extend({
+    title: z.string().default("Presentations"),
+    presentations: z.array(
+      z.object({
+        date: z.string(),
+        presenter: z.string(),
+        title: z.string(),
+        venue: z.string().optional(),
+        location: z.string().optional(),
+        link: z.string().optional(),
+      })
+    ).optional(),
+  }),
+});
+
+const outreach = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./src/content/outreach",
+  }),
+  schema: searchable.extend({
+    title: z.string().default("Outreach"),
+    outreach: z.array(
+      z.object({
+        date: z.string(),
+        title: z.string(),
+        event: z.string().optional(),
+        description: z.string().optional(),
+        link: z.string().optional(),
+      })
+    ).optional(),
+  }),
+});
+
+const announcements = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./src/content/announcements",
+  }),
+  schema: searchable.extend({
+    title: z.string().default("Announcements"),
+    announcements: z.array(
+      z.object({
+        active: z.boolean().default(true),
+        date: z.string(),
+        title: z.string(),
+        text: z.string(),
+        link: z.string().optional(),
+      })
+    ).optional(),
+  }),
+});
+
 // Export collections
 export const collections = {
   about,
@@ -121,5 +205,9 @@ export const collections = {
   awards,
   publications,
   home,
-  news
+  news,
+  patents,
+  presentations,
+  outreach,
+  announcements
 };

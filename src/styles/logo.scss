@@ -104,9 +104,10 @@
 
 .word-left,
 .word-middle,
-.word-right {
+.word-right,
+.word-amp {
     @apply opacity-0;
-    @apply text-xl sm:text-2xl md:text-3xl xl:text-5xl; // scalable by breakpoint
+    @apply text-xl sm:text-2xl md:text-3xl xl:text-5xl;
     font-family: Chakra Petch;
     display: flex;
     align-items: center;
@@ -118,6 +119,13 @@
 .word-left {
     @apply flex justify-start flex-initial;
     color: #cc1212 !important;
+    transition: transform 0.3s ease;
+}
+
+.word-amp {
+    @apply flex justify-center flex-initial px-3;
+    color: #ffffff !important;
+    transform: translateY(0.75rem);
     transition: transform 0.3s ease;
 }
 

@@ -1,65 +1,28 @@
 ---
 import type { AwardEntry } from "@/types";
 import { plainify } from "@lib/textConverter";
-import { Image } from "astro:assets";
-import defaultImage from "@/assets/people/example.webp";
-import {
-  FaTrophy
-} from "react-icons/fa";
 
 interface Props {
   entry: AwardEntry;
 }
 
 const { entry }: Props = Astro.props;
-const {title, imageAlt, awardLink, year, recipient} = entry.data;
-const image = entry.data.image ?? defaultImage;
-
-const bodyBrief = entry.body ? plainify(entry.body?.slice(0, 100)) : null;
+const { title, awardLink, year, recipient } = entry.data;
+const bodyBrief = entry.body ? plainify(entry.body) : null;
 ---
 
-<div class="w-full border-l rounded-bl-[3rem] border-b border-gray-200 dark:border-gray-600">
-  <div class="flex h-full justify-between items-center intersect:animate-fadeUp opacity-0">
-    <div class="flex items-center gap-4 ml-2">
-      {image && (
-        <div class="relative flex flex-col min-w-[3.5rem]">
-          <FaTrophy className="w-[2rem] h-[2rem] mb-6 text-yellow-300 dark:text-yellow-200" />
-          <div class="absolute bottom-0 left-5 w-10 h-10 rounded-full overflow-hidden border-2 border-bg-p dark:border-darkmode-bg-p">
-            <Image
-              src={image}
-              alt={imageAlt}
-              width={300}
-              height={400}
-              class="w-full h-full object-cover"
-              loading="eager"
-            />
-          </div>
-        </div>
-      )}
-
-      <div class="flex flex-col justify-center h-full">
-        {bodyBrief ? (
-          awardLink ? (
-            <a
-              href={awardLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mb-1 hover:underline"
-            >
-              <h5>{bodyBrief}</h5>
-            </a>
-          ) : (
-            <h5 class="mb-1">{bodyBrief}</h5>
-          )
-        ) : null}
-
-        <h6 class="font-primary">{title}</h6>
-        <h6>{recipient}</h6>
-      </div>
-    </div>
-
-    <div class="ml-auto mr-2">
-      <h6 class="font-secondary whitespace-nowrap">{year}</h6>
-    </div>
-  </div>
+<div class="border-b border-border dark:border-darkmode-border py-3">
+  <p class="text-base">
+    <span class="font-semibold">{year}</span>
+    {" — "}
+    {awardLink ? (
+      <a href={awardLink} target="_blank" rel="noopener noreferrer" class="font-semibold hover:underline">
+        {title}
+      </a>
+    ) : (
+      <span class="font-semibold">{title}</span>
+    )}
+    {recipient && <> — {recipient}</>}
+    {bodyBrief && <> — {bodyBrief}</>}
+  </p>
 </div>

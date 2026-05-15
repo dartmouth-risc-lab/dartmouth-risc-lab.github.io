@@ -1,17 +1,37 @@
 ---
-import { getCollection } from "astro:content";
-import AwardCard from "./Card.astro";
+import { getEntry } from "astro:content";
 
-const awards = (await getCollection("awards")).sort(
-  (a, b) => b.data.year - a.data.year
+const entry = await getEntry("awards", "awards");
+const awards = entry?.data.awards ?? [];
+
+awards.sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
 );
 ---
 
 <section class="w-full mx-auto">
-    <h1 class="text-3xl font-bold mb-8 md:mb-[4rem] text-center md:text-left border-b border-border dark:border-darkmode-border">Awards</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-      {awards.map((award) => (
-        <AwardCard entry={award} />
-      ))}
-    </div>
+  <h1 class="text-5xl font-bold mb-12 text-center">Awards & Recognition</h1>
+
+  <div class="space-y-1">
+    {awards.map((award) => (
+  <p class="border-b border-border dark:border-darkmode-border py-3 text-base">
+    {award.awardLink ? (
+      <a
+        href={award.awardLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-semibold hover:underline"
+      >
+        {award.title}
+      </a>
+    ) : (
+      <span class="font-semibold">{award.title}</span>
+    )}
+    {" — "}
+    <span>{award.recipient}</span>
+    {" — "}
+    <span>{award.result}</span>
+  </p>
+))}
+  </div>
 </section>

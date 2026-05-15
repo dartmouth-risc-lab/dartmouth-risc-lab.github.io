@@ -1,9 +1,11 @@
 ---
 title: Atharv Agashe
 image: "@assets/people/AVA.webp"
-startYear: "2024"
-endYear: "2025"
+status: "graduated"
+startDate: "2024-08-10"
+endDate: "2025-05-15"
 pronouns: "he/him"
+nextStop: "SE@DraftKings"
 social: 
     website: "https://atharvagashe.com/"
 ---
