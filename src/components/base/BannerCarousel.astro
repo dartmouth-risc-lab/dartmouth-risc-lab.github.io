@@ -1,13 +1,19 @@
 ---
 import { Image } from 'astro:assets';
 
-// Load image modules from src/assets/carousel/
-const imageModules = import.meta.glob('@assets/carousel/*.webp', {
+// Load image modules from src/assets/publications/ and src/assets/publications/
+const publicationTeasers = import.meta.glob('@assets/publications/teasers/*.{webp,png,jpg,jpeg}', {
   eager: true
 });
 
-// Extract Image metadata
-const images = Object.values(imageModules);
+const labPhotos = import.meta.glob('@assets/lab-photos/*.{webp,png,jpg,jpeg}', {
+  eager: true
+});
+
+const images = [
+  ...Object.values(labPhotos),
+  ...Object.values(publicationTeasers),
+];
 ---
 
 <style>
@@ -20,6 +26,16 @@ const images = Object.values(imageModules);
 
   .carousel img {
     @apply absolute top-0 left-0 w-full h-[15rem] md:h-[20rem] lg:h-[23rem] xl:h-full object-cover opacity-0 transition-opacity duration-[3000ms] ease-in-out;
+    filter: blur(1px) brightness(0.22) saturate(0.75);
+    transform: scale(1.03);
+  }
+
+  .carousel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.50);
+    z-index: 5;
   }
 
   .carousel img.active {
@@ -37,9 +53,29 @@ const images = Object.values(imageModules);
     />
   ))}
 
-<script type="module">
-  import { initCarousel } from `${import.meta.env.BASE_URL}/src/scripts/carousel.js`;
-  initCarousel();
+<script is:inline>
+  function startCarousel() {
+    const images = document.querySelectorAll(".carousel img");
+    if (!images.length) return;
+
+    let current = 0;
+
+    images.forEach((img, i) => {
+      img.classList.remove("active");
+      if (i === 0) img.classList.add("active");
+    });
+
+    clearInterval(window.carouselInterval);
+
+    window.carouselInterval = setInterval(() => {
+      images[current].classList.remove("active");
+      current = (current + 1) % images.length;
+      images[current].classList.add("active");
+    }, 5000);
+  }
+
+  startCarousel();
+  document.addEventListener("astro:after-swap", startCarousel);
 </script>
 
 </div>
