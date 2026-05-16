@@ -1,0 +1,68 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@components/base/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const resources = await getCollection("resources");
+
+  return resources.map((resource) => ({
+    params: { slug: resource.id },
+    props: { resource },
+  }));
+}
+
+const { resource } = Astro.props;
+const { Content } = await render(resource);
+---
+
+<BaseLayout title={resource.data.title}>
+  <section class="container py-10">
+    <article class="max-w-4xl mx-auto">
+      <h1 class="text-5xl font-bold mb-10 text-center">{resource.data.title}</h1>
+
+      <div class="resource-markdown">
+        <Content />
+      </div>
+    </article>
+  </section>
+    <style>
+    .resource-markdown {
+      line-height: 1.75;
+      font-size: 1.02rem;
+    }
+
+    .resource-markdown :global(strong) {
+      color: #0f766e;
+      font-weight: 800;
+    }
+
+    .resource-markdown :global(a) {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .resource-markdown :global(a:hover) {
+      color: #1d4ed8;
+    }
+
+    .resource-markdown :global(ol),
+    .resource-markdown :global(ul) {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .resource-markdown :global(li) {
+      margin-bottom: 0.75rem;
+    }
+
+    .resource-markdown :global(p) {
+      margin-bottom: 1rem;
+    }
+
+    .resource-markdown :global(em) {
+      color: #7c3aed;
+    }
+  </style>
+</BaseLayout>

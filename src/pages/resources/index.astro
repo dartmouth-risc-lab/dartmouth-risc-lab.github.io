@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@components/base/BaseLayout.astro";
+
+const resources = await getCollection("resources");
+
+resources.sort(
+  (b, a) =>
+    new Date(b.data.date ?? "1900-01-01").getTime() -
+    new Date(a.data.date ?? "1900-01-01").getTime()
+);
+---
+
+<BaseLayout title="Resources">
+  <section class="container py-10">
+    <h1 class="text-5xl font-bold mb-12 text-center">Resources</h1>
+
+    <div class="space-y-4 max-w-4xl mx-auto">
+      {resources.map((resource) => (
+        <a
+          href={`/resources/${resource.id}/`}
+          class="block rounded-xl border border-border dark:border-darkmode-border px-6 py-4 hover:shadow-md transition"
+        >
+          <h2 class="text-xl font-semibold">{resource.data.title}</h2>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

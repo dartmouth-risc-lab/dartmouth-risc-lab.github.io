@@ -198,6 +198,17 @@ const announcements = defineCollection({
   }),
 });
 
+const resources = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./src/content/resources",
+  }),
+  schema: searchable.extend({
+    title: z.string(),
+    date: z.string().optional(),
+  }),
+});
+
 // Export collections
 export const collections = {
   about,
@@ -209,5 +220,6 @@ export const collections = {
   patents,
   presentations,
   outreach,
-  announcements
+  announcements,
+  resources,
 };
