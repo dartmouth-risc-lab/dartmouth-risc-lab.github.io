@@ -1,167 +1,610 @@
-# RISc Lab
-
+# RISc Lab Website — Maintainer Guide
 
 <div align="center">
-  <img src="src/assets/logos/RISClogo-whiteoutline.svg" alt="RISc Logo" style="width: 50%;"/>
+  <img src="src/assets/logos/RISClogo-whiteoutline.svg" alt="RISc Logo" width="40%"/>
 </div>
 
 ---
 
-This is the RISc Lab website, built using Atro with the [Astrogon](https://github.com/astrogon/astrogon) template.
+# Table of Contents
 
-## Features
-- light/dark mode
-- responsive layout
-- searching for publications based on title
+- [Running Locally](#running-locally)
+- [Repository Structure](#repository-structure)
+- [People](#people)
+- [Publications](#publications)
+- [Awards](#awards)
+- [Presentations](#presentations)
+- [Outreach](#outreach)
+- [Patents](#patents)
+- [Resources](#resources)
+- [Homepage News](#homepage-news)
+- [Homepage Banner Carousel](#homepage-banner-carousel)
+- [Funding Logos](#funding-logos)
+- [Announcements](#announcements)
+- [Styling Notes](#styling-notes)
+- [Deployment](#deployment)
 
-## Development Instructions (taken from Astrogon)
-
-1. Fork this repository to your own GitHub account, then clone it to your local machine
-2. Use Node 22: `nvm install 22` or `nvm use 22`
-3. From the project directory, install Node dependencies: `npm install`
-4. From the project directory, build: `npm run dev`
-5. See your changes live at `http://localhost:4321`
-
-## Adding Content
-Most of everything you will need to update is in the ```src/content``` and ```src/assets``` folders. 
-
-After you change frontmatter (especially `image:` paths) or add new entries, run `npx astro sync` or restart `npm run dev` so Astro regenerates its content asset cache (see `.astro/content-assets.mjs`).
-
-- ```src/content``` : markdown files that contain the content
-- ```src/assets``` : images in ```.webp``` format
-
-### Assets
-- carousel: images that cycle in the banner carousel on the home page
-- logos: RISc lab logos, as well as funding sources and collaborators
-- news: images that correspond with news articles
-- people: images that correspond with people cards
-- publications/teasers: teaser images
-
-### Content
-Each individual item that you want to show needs its own ```.md``` file. The astro code automatically searches for all entries inside the subfolders, assembling them into a "Collection" object of the same name as the folder. No editing of the astro components needed (unless you want to tweak the style)!
-
-- about: the "about" snippet that is displayed under the logo and image banner carousel
-- awards: entries for each award
-- home: initializes the home page
-- news: news entries
-- people: entries for each person, organized by degree type in subfolders
-- publications: entries for each publication
-
-The easiest way to create a new item is to copy an existing ```.md``` file and replace the content inside with the new information. The ```.md``` files each start with some frontmatter, followed by the body content like so:
-
-``` bash
 ---
-title: "Title"
-description: "this is the description"
-image: "@/assets/example.webp"
-otherParams:
-  link: "https://github.com"
-  year: "2022"
----
-Content
-```
-If you need to see what frontmatter expects as input, you can look at the ```config.ts``` file and find the relevant collection definition. For instance, if you put the wrong type you may get an error that looks like this:
+
+# Running Locally
+
+Use Node 22.
 
 ```bash
-14:24:41 [ERROR] [InvalidContentEntryDataError] people → phd/janedoe data does not match collection schema.
-startYear: Expected type `"string"`, received `"number"`
+npm install
+npm run dev
 ```
 
-### Collections
-Astro uses Collections to create groups of content that have the same structure. For example, this is the People collection definition:
+Open:
 
-```javascript
-const people = defineCollection({
-  loader: glob({
-    pattern: "**\/[^_]*.{md,mdx}",
-    base: "./src/content/people",
-  }),
-  schema: ({ image }) =>
-    searchable.extend({
-      title: z.string(),
-      image: image().optional(),
-      imageAlt: z.string().default(""),
-      startYear: z.string().default("2022"), 
-      endYear: z.string().default("present"),
-      pronouns: z.string().optional(),
-      social: social.optional()
-    }),
-});
-```
-The ```loader``` tells astro to grab all ```.md``` or ```.mdx``` files that don't start with an underscore from the folder ```./src/content/people```. Then then ```schema``` defines the variables that get filled out in the frontmatter. Notice some variables are optional, or have defaults. The code can then use these variables to conditionally style things. For instance, for the People and Publication collections, if you don't provide an image then the code uses an example default image.
-
-### Conditional Formatting
-
-```people```
- - no ```image``` defaults to example
- - entries get sorted in *ascending* order according to ```startYear```
- - no ```endYear``` defaults to "present", otherwise gets put into alumni list
-
-```publications```
- - no ```image``` defaults to example
-
-```awards```
- - entries get sorted in *descending* order according to ```year```
-
-```news```
- - entries get sorted in *descending* order by ```date```
-
-## Changing the style
-If you need to change the style, you can modify the ```.astro``` files found in the ```./components``` folder. The people, publications, awards, and news elements are all Cards that get grouped and shown in a CollectionLayout. Therefore, depending on what you want to edit you may edit either the Card or the CollectionLayout. The style mostly uses Tailwind CSS classes. 
-
-## SEO
-You may need to change the ```./public/CNAME``` and ```./public/robots.txt``` files to point to the correct domain name or hide certain routes. 
-
-## Folder structure
-``` bash
-├── src
-│   ├── assets
-│   │   ├── carousel
-│   │   ├── convert_imgs_webp.sh
-│   │   ├── logos
-│   │   │   ├── I-risc.webp
-│   │   │   ├── R-risc.webp
-│   │   │   ├── RISClogo-whiteoutline.svg
-│   │   │   ├── Sc-risc.webp
-│   │   │   ├── collaborators
-│   │   │   └── funding
-│   │   ├── news
-│   │   ├── people
-│   │   └── publications
-│   │       └── teasers
-│   ├── components
-│   ├── content
-│   │   ├── about
-│   │   ├── awards
-│   │   ├── config.ts
-│   │   ├── home
-│   │   ├── news
-│   │   ├── people
-│   │   │   ├── -index.md
-│   │   │   ├── masters
-│   │   │   ├── phd
-│   │   │   ├── professors
-│   │   │   └── undergraduates
-│   │   └── publications
+```text
+http://localhost:4321
 ```
 
-## Deploy on Dartmouth Server:
+If content schemas change:
 
-Just commit and push. Then check deployment errors on Github actions.
+```bash
+npx astro sync
+```
 
-<!-- 
-### TO CONNECT TO THE REWEB ASSESTS:
-- RC Linux systems:      /dartfs/rc/lab/R/RISCLab
-- Mac Finder path:  smb://dartfs.dartmouth.edu/rc/lab/R/RISCLab
-- Windows UNC path:     \\dartfs.dartmouth.edu\rc\lab\R\RISCLab
+---
 
-### TO DEPLOY:
-- Run `npm run build` to create the production build
-- Copy all the files from [/dist] to the [dartfs/publish_html] folder to update the website on the dartmouth server.
+# Repository Structure
 
-## Astrogon
-The original Astrogon documentation can be found in the folder ```./astrogon-docs```
+```text
+src/
+  assets/
+  components/
+  content/
+  pages/
+```
 
-## License
-Astrogon is licensed under the [MIT License](LICENSE).
- -->
+Main editable folders:
+
+```text
+src/content/
+src/assets/
+```
+
+---
+
+# People
+
+Location:
+
+```text
+src/content/people/
+```
+
+Subfolders:
+
+```text
+professors/
+postdoc/
+phd/
+masters/
+undergraduates/
+visitors/
+```
+
+---
+
+# People Template
+
+## Standard Member
+
+```md
+---
+title: Jane Doe
+
+image: "@assets/people/jane.webp"
+
+startDate: "2025-09-01"
+endDate: "2030-06-01"
+
+pronouns: "she/her"
+
+status: "graduated/current"
+
+nextStop: "Assistant Professor at Example University"
+
+social:
+  website: "https://example.com"
+  scholar: "https://scholar.google.com/..."
+  github: "https://github.com/example"
+---
+```
+
+---
+
+# People Fields
+
+| Field | Required | Meaning |
+|---|---|---|
+| `title` | Yes | Full name |
+| `image` | Optional | Profile image |
+| `startDate` | Yes | Used for sorting |
+| `endDate` | Optional | Used for alumni/former logic |
+| `pronouns` | Optional | Pronouns |
+| `status` | Optional | Used for alumni classification |
+| `nextStop` | Optional | Displayed for alumni |
+| `social` | Optional | Website/social links |
+
+---
+
+# Current Members Logic
+
+A person is considered CURRENT if:
+
+```yaml
+endDate:
+```
+
+is missing OR is in the future.
+
+Current members are sorted chronologically by:
+
+```yaml
+startDate
+```
+
+---
+
+# Alumni Logic
+
+A person appears in alumni ONLY if BOTH are true:
+
+```yaml
+status: "graduated"
+```
+
+AND:
+
+```yaml
+endDate < today
+```
+
+Otherwise they remain active.
+
+Alumni are separated into:
+
+- Postdoc Alumni
+- PhD Alumni
+- Masters Alumni
+- Undergraduate Alumni
+
+All alumni lists are reverse chronological.
+
+---
+
+# Former Members Logic
+
+Former members are:
+
+- people whose `endDate` has passed
+- but DO NOT have:
+
+```yaml
+status: "graduated"
+```
+
+Visitors never appear in former members.
+
+Former members render:
+
+- compact layout
+- no images
+- no nextStop display
+
+---
+
+# Visitors
+
+Location:
+
+```text
+src/content/people/visitors/
+```
+
+Visitors render:
+
+- compact layout
+- no images
+- reverse chronological order
+
+Example:
+
+```md
+---
+title: Bruce Wayne
+
+startDate: "2024-01-01"
+endDate: "2024-05-01"
+
+pronouns: "he/him"
+
+affliation: "University of Chicago"
+
+social:
+  website: "https://scholar.google.com/..."
+---
+```
+
+---
+
+# Publications
+
+Location:
+
+```text
+src/content/publications/
+```
+
+Each publication gets its own Markdown file.
+
+---
+
+# Publication Template
+
+```md
+---
+title: Example Paper
+
+authors:
+  - Jane Doe
+  - John Smith
+
+conference: SIGGRAPH 2026
+
+date: "2026-07-01"
+
+paper: "add pdf to your website and add that link"
+
+project: "create website on risclab github"
+
+teaser: "@assets/publications/teasers/example.webp"
+---
+```
+
+---
+
+# Publication Fields
+
+| Field | Meaning |
+|---|---|
+| `title` | Paper title |
+| `authors` | Ordered author list |
+| `conference` | Venue |
+| `date` | Used for sorting/news |
+| `paper` | PDF link |
+| `project` | Project page |
+| `teaser` | Publication teaser image |
+
+---
+
+# Publication Teasers
+
+Location:
+
+```text
+src/assets/publications/teasers/
+```
+
+Supported formats:
+
+- `.webp`
+- `.png`
+- `.jpg`
+- `.jpeg`
+
+Teasers are used:
+
+- on publication pages
+- in homepage rotating banner
+
+---
+
+# Awards
+
+Location:
+
+```text
+src/content/awards/awards.md
+```
+
+Example:
+
+```yaml
+awards:
+  - date: "2026-05-01"
+    person: "Jane Doe"
+    title: "Best Paper Award"
+```
+
+Awards automatically appear in homepage News.
+
+---
+
+# Presentations
+
+Location:
+
+```text
+src/content/presentations/presentations.md
+```
+
+Example:
+
+```yaml
+presentations:
+  - date: "2026-01-25"
+    person: "Adithya Pediredla"
+    event: "Photonics West 2026"
+```
+
+Presentations automatically appear in homepage News.
+
+---
+
+# Outreach
+
+Location:
+
+```text
+src/content/outreach/outreach.md
+```
+
+Example:
+
+```yaml
+outreach:
+  - date: "2026-04-25"
+    title: "Science Day at Dartmouth"
+```
+
+Outreach automatically appear in homepage News.
+
+---
+
+# Patents
+
+Location:
+
+```text
+src/content/patents/patents.md
+```
+
+Example:
+
+```yaml
+patents:
+  - date: "2026-04-10"
+    title: "Example Patent"
+    inventors:
+      - Jane Doe
+```
+
+Patents automatically appear in homepage News.
+
+---
+
+# Resources
+
+Location:
+
+```text
+src/content/resources/
+```
+
+Each resource is its own Markdown file.
+
+Examples:
+
+```text
+risc-lab-guidelines.md
+mental-health.md
+suggested-reading-list.md
+```
+
+Rendered dynamically using:
+
+```text
+src/pages/resources/[slug].astro
+```
+
+---
+
+# Homepage News
+
+Homepage news is automatically aggregated from:
+
+1. Manual News
+2. Awards
+3. Outreach
+4. Presentations
+5. Publications
+6. Patents
+
+Tie-breaking priority:
+
+```text
+Manual News
+→ Awards
+→ Outreach
+→ Presentations
+→ Publications
+→ Patents
+```
+
+Only latest 3 entries are shown.
+
+---
+
+# Manual News
+
+Location:
+
+```text
+src/content/news/news.md
+```
+
+Example:
+
+```yaml
+news:
+  - date: "2026-01-01"
+    title: "RISc Lab launched new project"
+```
+
+---
+
+# Homepage Banner Carousel
+
+Banner images rotate automatically.
+
+Image sources:
+
+```text
+src/assets/lab-photos/
+src/assets/publications/teasers/
+```
+
+Lab photos are prioritized first.
+
+Banner behavior:
+
+```text
+src/components/base/BannerCarousel.astro
+```
+
+Rotation timing:
+
+```js
+5000 ms
+```
+
+Images are intentionally:
+
+- darkened
+- slightly blurred
+- slightly desaturated
+
+to avoid overpowering the RISc branding overlay.
+
+---
+
+# Lab Photos
+
+Add lab photos here:
+
+```text
+src/assets/lab-photos/
+```
+
+Recommended:
+
+- wide aspect ratio
+- cinematic compositions
+- darker images
+- minimal embedded text
+
+Supported formats:
+
+- `.webp`
+- `.png`
+- `.jpg`
+- `.jpeg`
+
+These automatically participate in homepage banner rotation.
+
+---
+
+# Funding Logos
+
+Location:
+
+```text
+src/assets/funding/
+```
+
+To add a new funding source:
+
+1. Add logo to folder
+2. Update:
+
+```text
+src/components/home/FundingEntry.astro
+```
+
+Maintain similar visual sizing as existing logos.
+
+---
+
+# Announcements
+
+Homepage announcement banners are controlled through:
+
+```text
+src/content/announcements/
+```
+
+Displayed above the RISc logo banner.
+
+Used for:
+
+- REU announcements
+- Open positions
+- Recruiting notices
+- Important updates
+
+---
+
+# Styling Notes
+
+Most styling lives in:
+
+```text
+src/components/
+```
+
+Tailwind CSS is used heavily throughout the project.
+
+Main editable layouts:
+
+```text
+CollectionLayout.astro
+Card.astro
+BannerCarousel.astro
+Header.astro
+Footer.astro
+```
+
+---
+
+# Deployment
+
+Deployment is automatic. After committing changes, simply push to `main`:
+
+```bash
+git push origin main
+```
+
+Check deployment status under:
+
+```text
+GitHub → Actions
+```
+
+
+Production URL:
+
+```text
+https://risclab-dartmouth.com
+```
+
+GitHub Pages repository:
+
+```text
+dartmouth-risc-lab.github.io
+```
+
