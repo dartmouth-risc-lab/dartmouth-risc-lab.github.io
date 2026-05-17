@@ -84,11 +84,11 @@ const formerMembers = entries
   <section class="section-sm pb-0">
     <div class="container">
       <div class="text-center mb-8 flex flex-wrap justify-center gap-x-4 gap-y-2">
-        {visitors.length > 0 && <a href="#visitors" class="text-sm underline opacity-80 hover:opacity-100">Visitors</a>}
         {postdocAlumni.length > 0 && <a href="#postdoc-alumni" class="text-sm underline opacity-80 hover:opacity-100">Postdoc Alumni</a>}
         {phdAlumni.length > 0 && <a href="#phd-alumni" class="text-sm underline opacity-80 hover:opacity-100">PhD Alumni</a>}
         {mastersAlumni.length > 0 && <a href="#masters-alumni" class="text-sm underline opacity-80 hover:opacity-100">Masters Alumni</a>}
         {undergraduateAlumni.length > 0 && <a href="#undergraduate-alumni" class="text-sm underline opacity-80 hover:opacity-100">Undergraduate Alumni</a>}
+        {visitors.length > 0 && <a href="#visitors" class="text-sm underline opacity-80 hover:opacity-100">Visitors</a>}
         {formerMembers.length > 0 && <a href="#former-members" class="text-sm underline opacity-80 hover:opacity-100">Former Members</a>}
       </div>
 
@@ -151,18 +151,6 @@ const formerMembers = entries
         </div>
       )}
 
-      {visitors.length > 0 && (
-        <section id="visitors" class="md:mx-[6rem] mt-12">
-          <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
-            Visitors
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {visitors.map((entry) => (
-              <StudentCard entry={entry} listOnly roleLabel={roleLabels[getFolder(entry)]} />
-            ))}
-          </div>
-        </section>
-      )}
 
       {postdocAlumni.length > 0 && (
         <section id="postdoc-alumni" class="md:mx-[6rem] mt-16">
@@ -216,6 +204,19 @@ const formerMembers = entries
         </section>
       )}
 
+       {visitors.length > 0 && (
+        <section id="visitors" class="md:mx-[6rem] mt-12">
+          <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
+            Visitors
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {visitors.map((entry) => (
+              <StudentCard entry={entry} listOnly roleLabel={roleLabels[getFolder(entry)]} />
+            ))}
+          </div>
+        </section>
+      )}
+      
       {formerMembers.length > 0 && (
         <section id="former-members" class="md:mx-[6rem] mt-12">
           <h2 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">
@@ -232,6 +233,8 @@ const formerMembers = entries
           </div>
         </section>
       )}
+
+     
     </div>
   </section>
 </BaseLayout>
