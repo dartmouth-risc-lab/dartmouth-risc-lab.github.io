@@ -1,0 +1,164 @@
+---
+import BaseLayout from "@components/base/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+
+const getBestLink = (item, fallback = "#") =>
+  item.link ||
+  item.url ||
+  item.href ||
+  item.awardLink ||
+  item.eventLink ||
+  item.presentationLink ||
+  item.slidesLink ||
+  item.videoLink ||
+  item.recordingLink ||
+  item.projectPage ||
+  item.projectPdf ||
+  item.projectCode ||
+  item.paperLink ||
+  item.pdf ||
+  item.patentLink ||
+  fallback;
+
+const getVenue = (item) =>
+  item.venue ||
+  item.conference ||
+  item.journal ||
+  item.event ||
+  item.awardVenue ||
+  item.location ||
+  "";
+
+const manualNewsEntry = await getEntry("news", "news");
+const manualNews = (manualNewsEntry?.data.news ?? []).map((item) => ({
+  date: item.date,
+  type: "Update",
+  title: item.title,
+  description: item.description,
+  venue: getVenue(item),
+  link: getBestLink(item),
+  priority: 1,
+}));
+
+const awardsEntry = await getEntry("awards", "awards");
+const awards = (awardsEntry?.data.awards ?? []).map((item) => ({
+  date: item.date,
+  type: "Award",
+  title: item.recipient ? `${item.title} — ${item.recipient}` : item.title,
+  description: item.result,
+  venue: getVenue(item),
+  link: getBestLink(item, "/awards/"),
+  priority: 2,
+}));
+
+const outreachEntry = await getEntry("outreach", "outreach");
+const outreach = (outreachEntry?.data.outreach ?? []).map((item) => ({
+  date: item.date,
+  type: "Outreach",
+  title: item.title,
+  description: item.description,
+  venue: getVenue(item),
+  link: getBestLink(item, "/outreach/"),
+  priority: 3,
+}));
+
+const presentationsEntry = await getEntry("presentations", "presentations");
+const presentations = (presentationsEntry?.data.presentations ?? []).map((item) => ({
+  date: item.date,
+  type: "Presentation",
+  title: item.presenter ? `${item.title} — ${item.presenter}` : item.title,
+  description: item.description,
+  venue: getVenue(item),
+  link: getBestLink(item, "/presentations/"),
+  priority: 4,
+}));
+
+const publications = (await getCollection("publications")).map((entry) => ({
+  date: entry.data.date || `${entry.data.year}-01-01`,
+  type: "Publication",
+  title: entry.data.title,
+  description: entry.data.description,
+  venue: getVenue(entry.data),
+  link: getBestLink(entry.data, "/publications/"),
+  priority: 5,
+}));
+
+const patentsEntry = await getEntry("patents", "patents");
+const patents = (patentsEntry?.data.patents ?? []).map((item) => ({
+  date: item.date,
+  type: "Patent",
+  title: item.title,
+  description: item.description,
+  venue: getVenue(item),
+  link: getBestLink(item, "/patents/"),
+  priority: 6,
+}));
+
+const allNews = [
+  ...manualNews,
+  ...awards,
+  ...outreach,
+  ...presentations,
+  ...publications,
+  ...patents,
+]
+  .filter((item) => item.date)
+  .sort((a, b) => {
+    const dateDiff = new Date(b.date).getTime() - new Date(a.date).getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return a.priority - b.priority;
+  });
+
+const formatDate = (date) =>
+  new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+---
+
+<BaseLayout
+  title="News"
+  description="Latest updates, publications, awards, presentations, outreach, and announcements from the RISc Lab at Dartmouth."
+>
+<section class="container py-10">
+  <h1 class="mb-6 border-b border-border pb-3 text-4xl font-bold dark:border-darkmode-border">
+    News
+  </h1>
+
+  <div class="divide-y divide-border dark:divide-darkmode-border">
+    {allNews.map((entry) => (
+      <a
+        href={entry.link}
+        class="group grid gap-3 py-3 transition hover:bg-theme-light/40 dark:hover:bg-darkmode-theme-light/20 md:grid-cols-[11rem_1fr]"
+      >
+        <div class="flex shrink-0 items-baseline gap-2 text-xs opacity-70 md:flex-col md:items-start md:gap-0 md:text-sm">
+          <time class="whitespace-nowrap">
+            {formatDate(entry.date)}
+          </time>
+
+          <span class="whitespace-nowrap font-medium">
+            {entry.type}
+          </span>
+        </div>
+
+        <div class="min-w-0">
+          <h2 class="text-base font-semibold leading-snug group-hover:underline md:text-lg">
+            {entry.title}
+          </h2>
+
+          <div class="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs opacity-75 md:text-sm">
+            {entry.venue && (
+              <span>{entry.venue}</span>
+            )}
+
+            {entry.description && (
+              <span>{entry.description}</span>
+            )}
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+</BaseLayout>

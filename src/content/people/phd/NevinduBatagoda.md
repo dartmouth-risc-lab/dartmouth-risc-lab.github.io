@@ -6,5 +6,5 @@ startDate: "2025-09-13"
 pronouns: "he/him"
 nextStop: 
 social: 
-    website: "https://www.linkedin.com/in/nevindu-b-664a3613b/"
+    website: "https://nevindu.github.io/"
 ---

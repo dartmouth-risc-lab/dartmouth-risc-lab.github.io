@@ -31,7 +31,7 @@
 Use Node 22.
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 npm run dev
 ```
 

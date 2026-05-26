@@ -1,70 +1,143 @@
 ---
 import BannerCarousel from "@components/base/BannerCarousel.astro";
 import { Image } from "astro:assets";
-import RRisc from '../../assets/logos/R-risc.webp';
-import IRisc from '../../assets/logos/I-risc.webp';
-import ScRisc from '../../assets/logos/Sc-risc.webp';
+
+import RRisc from "@assets/logos/R-risc.webp";
+import IRisc from "@assets/logos/I-risc.webp";
+import ScRisc from "@assets/logos/Sc-risc.webp";
+
+import RRiscDark from "@assets/logos/R-risc-dark.webp";
+import IRiscDark from "@assets/logos/I-risc-dark.webp";
+import ScRiscDark from "@assets/logos/Sc-risc-dark.webp";
 ---
 
-<BannerCarousel/>
+<BannerCarousel />
 
 <!-- Logo images -->
 <div class="logo-container">
-    <div class="image-container-bottom">
-        <Image src={RRisc} alt="" class="rotating-image bottom"/>
-    </div>
-    <div class="image-container-middle">
-        <Image src={IRisc} alt="" class="rotating-image middle"/>
-    </div>
-    <div class="image-container-top">
-        <Image src={ScRisc} alt="" class="rotating-image top"/>
-    </div>
+  <div class="image-container-bottom">
+    <Image
+      src={RRisc}
+      alt=""
+      class="rotating-image bottom dark:hidden"
+      loading="eager"
+      decoding="sync"
+    />
+    <Image
+      src={RRiscDark}
+      alt=""
+      class="rotating-image bottom hidden dark:block"
+      loading="eager"
+      decoding="sync"
+    />
+  </div>
+
+  <div class="image-container-middle">
+    <Image
+      src={IRisc}
+      alt=""
+      class="rotating-image middle dark:hidden"
+      loading="eager"
+      decoding="sync"
+    />
+    <Image
+      src={IRiscDark}
+      alt=""
+      class="rotating-image middle hidden dark:block"
+      loading="eager"
+      decoding="sync"
+    />
+  </div>
+
+  <div class="image-container-top">
+    <Image
+      src={ScRisc}
+      alt=""
+      class="rotating-image top dark:hidden"
+      loading="eager"
+      decoding="sync"
+    />
+    <Image
+      src={ScRiscDark}
+      alt=""
+      class="rotating-image top hidden dark:block"
+      loading="eager"
+      decoding="sync"
+    />
+  </div>
 </div>
 
 <!-- Words under the images -->
 <div class="word-container">
-    <h1 class="word-left">Rendering</h1>
-    <h1 class="word-amp">&</h1>
-    <h1 class="word-middle">Imaging</h1>
-    <h1 class="word-right">Science</h1>
+  <h1 class="word-left">Rendering</h1>
+  <h1 class="word-amp">&</h1>
+  <h1 class="word-middle">Imaging</h1>
+  <h1 class="word-right">Science</h1>
 </div>
 
 <!-- Scripts that make the animations work -->
 <script is:inline>
-    function animatePage() {
-        // Animate rotating images
-        document.querySelectorAll('.rotating-image').forEach(img => {
-        img.classList.add('loading');
+  function animatePage() {
+    const images = document.querySelectorAll(".rotating-image");
 
-        requestAnimationFrame(() => {
-            img.classList.add('loaded');
-        });
+    images.forEach((img) => {
+      img.classList.remove("loading", "loaded");
 
-        img.addEventListener('transitionend', () => {
-            img.classList.remove('loading');
-        }, { once: true });
-        });
+      // Force reflow so animation can replay cleanly after navigation/theme swap.
+      void img.offsetWidth;
 
-        // Animate word text on load
-        const words = document.querySelectorAll('.word-left, .word-middle, .word-right');
-        requestAnimationFrame(() => {
-        words.forEach((el, index) => {
-            el.classList.remove('preload');
-            setTimeout(() => {
-            el.classList.add('loaded');
-            }, 100 + index * 250);
-        });
-        });
-    }
+      img.classList.add("loading");
 
-    // Call on initial load
-    if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', animatePage);
-    } else {
-        animatePage();
-    }
+      requestAnimationFrame(() => {
+        img.classList.add("loaded");
+      });
 
-    // Optional: Support Astro partial navigation (if using it)
-    document.addEventListener('astro:after-swap', animatePage);
+      img.addEventListener(
+        "transitionend",
+        () => {
+          img.classList.remove("loading");
+        },
+        { once: true }
+      );
+    });
+
+    const words = document.querySelectorAll(
+      ".word-left, .word-middle, .word-right, .word-amp"
+    );
+
+    requestAnimationFrame(() => {
+      words.forEach((el, index) => {
+        el.classList.remove("preload");
+
+        setTimeout(() => {
+          el.classList.add("loaded");
+        }, 100 + index * 250);
+      });
+    });
+  }
+
+  // Preload both light and dark logo images so theme switching is instant.
+  function preloadLogoImages() {
+    document.querySelectorAll(".rotating-image").forEach((img) => {
+      if (img instanceof HTMLImageElement && img.currentSrc) {
+        const preload = new window.Image();
+        preload.src = img.currentSrc;
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", () => {
+      preloadLogoImages();
+      animatePage();
+    });
+  } else {
+    preloadLogoImages();
+    animatePage();
+  }
+
+  document.addEventListener("astro:after-swap", () => {
+    preloadLogoImages();
+    animatePage();
+  });
 </script>
-
