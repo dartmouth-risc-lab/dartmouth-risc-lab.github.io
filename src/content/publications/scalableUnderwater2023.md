@@ -2,6 +2,7 @@
 title: "Scalable underwater assembly with reconfigurable visual fiducials"
 date: 2023-08-01
 image: "@assets/publications/teasers/scalable-underwater-assembly-with-reconfigurable-visual-fiducials.png"
+venue: "ICRA 2024"
 authors:
   - name: Sam Lensgraf
     affiliation: Dartmouth College

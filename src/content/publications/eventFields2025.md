@@ -2,6 +2,7 @@
 title: "Event fields: Capturing light fields at high speed, resolution, and dynamic range"
 date: 2025-06-01
 image: "@assets/publications/teasers/event-field.webp"
+venue: "CVPR 2025 (Highlight)"
 authors:
   - name: Quinton Qu
   - name: Zihao Zou

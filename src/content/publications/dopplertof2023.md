@@ -2,6 +2,7 @@
 title: "Doppler Time-of-Flight Rendering"
 date: 2023-09-01
 image: "@assets/publications/teasers/doppler-tof-rendering.webp"
+venue: "ACM Transactions on Graphics (SIGGRAPH Asia 2023)"
 authors:
   - name: Juhyeon Kim
   - name: Wojciech Jarosz

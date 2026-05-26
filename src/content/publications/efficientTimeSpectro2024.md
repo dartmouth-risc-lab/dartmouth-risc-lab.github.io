@@ -2,6 +2,7 @@
 title: "Efficient Time Sampling Strategy for Transient Absorption Spectroscopy"
 date: 2024-10-01
 image: "@assets/publications/teasers/efficient-time-sampling.webp"
+venue: ICCP 2024
 authors:
   - name: Juhyeon Kim
   - name: Joshua Multhaup

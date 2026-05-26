@@ -2,6 +2,7 @@
 title: "Z-Splat: Z-Axis Gaussian Splatting for Camera-Sonar Fusion"
 date: 2024-11-01
 image: "@assets/publications/teasers/z-splat.webp"
+venue: "ICCP & TPAMI 2024"
 authors:
   - name: Quinton Qu
   - name: Omkar Vengurlekar

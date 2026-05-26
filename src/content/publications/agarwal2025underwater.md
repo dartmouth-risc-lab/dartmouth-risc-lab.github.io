@@ -1,6 +1,7 @@
 ---
 title: "Underwater Optical Backscatter Communication using Acousto-Optic Beam Steering"
 date: 2025-12-18
+venue: "ACM Transactions on Graphics (SIGGRAPH Asia 2025)"
 image: "@assets/publications/teasers/aocomms.webp"
 authors:
   - name: Atul Agarwal
@@ -20,4 +21,4 @@ projectPage: "https://dartmouth-risc-lab.github.io/aocomm/"
 projectPdf: "https://dartmouth-risc-lab.github.io/aocomm/static/pdfs/paper.pdf"
 ---
 
-ACM Transactions on Graphics (SIGGRAPH Asia 2025) 
+ACM Transactions on Graphics (SIGGRAPH Asia 2025)

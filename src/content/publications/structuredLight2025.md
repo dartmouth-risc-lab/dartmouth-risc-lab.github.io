@@ -2,6 +2,7 @@
 title: "Structured light with a million light planes per second"
 date: 2025-11-27
 image: "@assets/publications/teasers/aosl.webp"
+venue: "ICCP & TPAMI 2025"
 authors:
   - name: Dhawal Sirikonda
   - name: Praneeth Chakravarthula

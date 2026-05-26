@@ -2,6 +2,7 @@
 title: "Megahertz Light Steering without Moving Parts"
 date: 2023-06-01
 image: "@assets/publications/teasers/mega-light-sterring.webp"
+venue: "CVPR 2023"
 authors:
   - name: Adithya Pediredla
   - name: Srinivasa Narasimhan
