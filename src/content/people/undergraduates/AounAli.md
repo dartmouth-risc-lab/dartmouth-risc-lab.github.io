@@ -1,5 +1,5 @@
 ---
-title: Auon Ali
+title: Aoun Ali
 status: "current"
 image: 
 startDate: "2026-01-10"

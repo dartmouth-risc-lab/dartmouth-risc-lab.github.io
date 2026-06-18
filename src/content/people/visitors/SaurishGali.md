@@ -1,5 +1,5 @@
 ---
-title: Sourish Gali
+title: Saurish Gali
 image: 
 startDate: "2025-06-10"
 endDate: "2025-08-20"
