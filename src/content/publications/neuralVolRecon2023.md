@@ -7,9 +7,11 @@ authors:
   - name: Albert Reed
     affiliation: ASU
   - name: Juhyeon Kim
+    lab: true
   - name: Thomas Blanford
     affiliation: Penn State
   - name: Adithya Pediredla
+    lab: true
   - name: Daniel Brown
     affiliation: Penn State
   - name: Suren Jayasuriya

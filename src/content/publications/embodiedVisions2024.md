@@ -5,9 +5,11 @@ image: "@assets/publications/teasers/embodied-visions.webp"
 venue: "Arts paper at SIGGRAPH Asia 2024"
 authors:
   - name: Yunzi Shi
+    lab: true
   - name: John Bell
     affiliation: Dartmouth College
   - name: Adithya Pediredla
+    lab: true
 projectPdf: "https://dl.acm.org/doi/full/10.1145/3680530.3695436"
 ---
 

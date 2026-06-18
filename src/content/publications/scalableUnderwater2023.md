@@ -9,6 +9,7 @@ authors:
   - name: Ankita Sarkar
     affiliation: Dartmouth College
   - name: Adithya Pediredla
+    lab: true
   - name: Devin Balkcom
     affiliation: Dartmouth College
   - name: Alberto Quattrini Li

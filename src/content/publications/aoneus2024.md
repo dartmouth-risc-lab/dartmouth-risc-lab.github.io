@@ -13,6 +13,7 @@ authors:
   - name: Michael Kaess
     affiliation: CMU
   - name: Adithya Pediredla
+    lab: true
   - name: Christopher Metzler
     affiliation: U Maryland
 projectPage: "https://aoneus.github.io/"

@@ -97,6 +97,7 @@ const publications = defineCollection({
       authors: z.array(z.object({
         name: z.string(),
         affiliation: z.string().optional().default(""),
+        lab: z.boolean().optional().default(false),
       })).optional(),
       projectPage: z.string().url().optional(),
       projectCode: z.string().url().optional(),

@@ -5,6 +5,7 @@ image: "@assets/publications/teasers/z-splat.webp"
 venue: "ICCP & TPAMI 2024"
 authors:
   - name: Quinton Qu
+    lab: true
   - name: Omkar Vengurlekar
     affiliation: ASU
   - name: Mohamad Qaadri
@@ -18,6 +19,7 @@ authors:
   - name: Suren Jayasuriya
     affiliation: ASU
   - name: Adithya Pediredla
+    lab: true
 projectPage: "https://quintonqu.github.io/z-splat-website/"
 projectCode: "https://github.com/QuintonQu/gaussian-splatting-with-depth/tree/gs-depth-main"
 projectPdf: "https://ieeexplore.ieee.org/document/10685550"

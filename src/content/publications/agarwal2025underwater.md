@@ -5,8 +5,11 @@ venue: "ACM Transactions on Graphics (SIGGRAPH Asia 2025)"
 image: "@assets/publications/teasers/aocomms.webp"
 authors:
   - name: Atul Agarwal
+    lab: true
   - name: Dhawal Sirikonda
+    lab: true
   - name: Atharv Agashe
+    lab: true
   - name: Dinithi Silva
     affiliation: Dartmouth
   - name: Ziang Ren
@@ -14,9 +17,10 @@ authors:
     affiliation: Columbia
   - name: Alberto Quattrini Li
     affiliation: Dartmouth
-  - name: Xia Zhou   
+  - name: Xia Zhou
   - name: Adithya Pediredla
     affiliation: Dartmouth
+    lab: true
 projectPage: "https://dartmouth-risc-lab.github.io/aocomm/"
 projectPdf: "https://dartmouth-risc-lab.github.io/aocomm/static/pdfs/paper.pdf"
 ---

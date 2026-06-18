@@ -5,11 +5,13 @@ image: "@assets/publications/teasers/aosl.webp"
 venue: "ICCP & TPAMI 2025"
 authors:
   - name: Dhawal Sirikonda
+    lab: true
   - name: Praneeth Chakravarthula
     affiliation: UNC
   - name: Ioannis Gkioulekas
     affiliation: CMU
   - name: Adithya Pediredla
+    lab: true
 projectPage: "https://dartmouth-risc-lab.github.io/aosl/"
 projectPdf: "https://arxiv.org/abs/2411.18597"
 ---

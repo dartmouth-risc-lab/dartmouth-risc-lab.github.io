@@ -5,6 +5,7 @@ image: "@assets/publications/teasers/event-field.webp"
 venue: "CVPR 2025 (Highlight)"
 authors:
   - name: Quinton Qu
+    lab: true
   - name: Zihao Zou
     affiliation: UNC
   - name: Vivek Boominathan
@@ -12,6 +13,7 @@ authors:
   - name: Praneeth Chakravarthula
     affiliation: UNC
   - name: Adithya Pediredla
+    lab: true
 projectPage: "https://dartmouth-risc-lab.github.io/event-field-website/"
 projectCode: "https://github.com/QuintonQu/Event-Field"
 projectPdf: "https://dartmouth-risc-lab.github.io/event-field-website/static/pdfs/event_field.pdf"

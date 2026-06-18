@@ -5,6 +5,7 @@ image: "@/assets/publications/teasers/optimized-virtual-optical-waveguides.webp"
 venue: "Nature Communications"
 authors:
   - name: Adithya Pediredla
+    lab: true
   - name: Matteo Giuseppe Scopelliti
     affiliation: CMU
   - name: Srinivasa Narasimhan

@@ -59,7 +59,11 @@ const publicationVenue = entry.body ? plainify(entry.body) : null;
       <p class="text-sm text-gray-700 dark:text-gray-300">
         {authors.map((author, index) => (
           <Fragment key={index}>
-            {author.affiliation ? author.name : <b>{author.name}</b>}
+            {author.lab ? (
+              <span class="font-bold text-gray-950 dark:text-white">{author.name}</span>
+            ) : (
+              author.name
+            )}
             {index < authors.length - 1 && ", "}
           </Fragment>
         ))}
