@@ -32,11 +32,11 @@ const publicationVenue = entry.body ? plainify(entry.body) : null;
 ---
 
 <article class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-4 items-start mx-[1rem] md:mx-[4rem] lg:mx-[6rem]">
-  <div class="relative w-32 h-auto">
+  <div class="relative w-32 aspect-video overflow-hidden shrink-0">
     <Image
       src={pubImage}
       alt={imageAlt}
-      class="w-32 h-auto object-cover"
+      class="w-full h-full object-cover"
       loading="lazy"
     />
   </div>
