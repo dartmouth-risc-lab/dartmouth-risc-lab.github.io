@@ -1,7 +1,7 @@
 ---
 title: "Optimized virtual optical waveguides enhance light throughput in scattering media"
 date: 2023-08-10
-image: "@/assets/publications/teasers/optimized-virtual-optical-waveguides.webp"
+image: "@assets/publications/teasers/2023/optimizedVirtualWaveguides2023.webp"
 venue: "Nature Communications"
 authors:
   - name: Adithya Pediredla

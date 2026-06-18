@@ -1,7 +1,7 @@
 ---
 title: "Snapshot Lidar: Fourier Embedding of Amplitude and Phase for Single-Image Depth Reconstruction"
 date: 2024-06-01
-image: "@assets/publications/teasers/snapshot-thumbnail.webp"
+image: "@assets/publications/teasers/2024/snapshotLidar2024.webp"
 venue: "CVPR 2024"
 authors:
   - name: Sarah Friday

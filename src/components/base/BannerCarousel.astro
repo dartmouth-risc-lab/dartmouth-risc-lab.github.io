@@ -1,8 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 
-// Load image modules from src/assets/publications/ and src/assets/publications/
-const publicationTeasers = import.meta.glob('@assets/publications/teasers/*.{webp,png,jpg,jpeg}', {
+// Load publication teaser images, including year-grouped folders.
+const publicationTeasers = import.meta.glob('@assets/publications/teasers/**/*.{webp,png,jpg,jpeg}', {
   eager: true
 });
 
