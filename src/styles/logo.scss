@@ -90,16 +90,18 @@
     @media (min-width: theme('screens.md')) {
         grid-template-columns: repeat(27, 1fr);
         max-width: 900px;
+        top: 4.75rem; /* center logos in the taller tablet banner */
     }
-    
+
     @media (min-width: theme('screens.lg')) {
         grid-template-columns: repeat(25, 1fr);
         max-width: 1200px;
+        top: 2rem; /* restore default offset above the tablet breakpoint */
     }
 }
 
 .word-container {
-    @apply flex justify-between relative top-[3.25rem] w-full max-w-[19rem] md:max-w-[28rem] lg:max-w-[30rem] xl:max-w-[43.75rem] mx-auto px-4;
+    @apply flex justify-between relative top-[3.25rem] md:top-[6rem] lg:top-[3.25rem] w-full max-w-[19rem] md:max-w-[28rem] lg:max-w-[30rem] xl:max-w-[43.75rem] mx-auto px-4;
     column-gap: clamp(0.25rem, 0.8vw, 0.75rem);
 }
 

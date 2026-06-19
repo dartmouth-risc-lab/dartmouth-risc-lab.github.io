@@ -55,7 +55,7 @@ const menu = [
     <input id="nav-toggle" type="checkbox" class="hidden" />
     <label
       for="nav-toggle"
-      class="order-0 cursor-pointer flex items-center md:hidden text-txt-p dark:text-darkmode-txt-p lg:order-1"
+      class="order-0 cursor-pointer flex items-center lg:hidden text-txt-p dark:text-darkmode-txt-p lg:order-1"
     >
       <svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20">
         <title>Menu Open</title>
@@ -71,7 +71,7 @@ const menu = [
     <!-- /navbar toggler -->
     <ul
       id="nav-menu"
-      class="text-center justify-center order-1 hidden w-full pb-6 md:order-2 md:flex md:w-auto md:space-x-2 md:pb-0 lg:space-x-4"
+      class="text-center justify-center order-1 hidden w-full pb-6 lg:order-2 lg:flex lg:w-auto lg:pb-0 lg:space-x-4"
     >
       {
         menu.map((item) => (
@@ -89,7 +89,7 @@ const menu = [
         ))
       }
     </ul>
-    <div class="text-center order-2 md:order-1 lg:my-0 flex items-center justify-center ">
+    <div class="text-center order-2 lg:order-1 lg:my-0 flex items-center justify-center ">
       <Social
         links={{
           youtube: "https://youtube.com/@risc-lab-dartmouth?si=p3y_LFPQIwpu5-9W",
