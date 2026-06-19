@@ -8,12 +8,19 @@ const publications = await getCollection("publications");
 // Group by year
 const groupedPublications: Record<string, typeof publications> = {};
 
+const getPublicationYear = (date: string | Date) => {
+  if (date instanceof Date) {
+    return date.getUTCFullYear().toString();
+  }
+
+  return date.slice(0, 4);
+};
+
 for (const pub of publications) {
   const rawDate = pub.data.date;
   if (!rawDate) continue;
 
-  const pubDate = new Date(rawDate);
-  const year = pubDate.getFullYear().toString();
+  const year = getPublicationYear(rawDate);
 
   if (!groupedPublications[year]) {
     groupedPublications[year] = [];
