@@ -18,14 +18,14 @@ const images = [
 
 <style>
   .carousel {
-    @apply absolute w-screen h-[20rem] md:h-[25rem] lg:h-[30rem] overflow-hidden;
+    @apply absolute w-screen h-[15rem] md:h-[20rem] lg:h-[23rem] xl:h-[30rem] overflow-hidden;
     top: 7.75rem;
     left: 0px;
     z-index: -100;
   }
 
   .carousel img {
-    @apply absolute top-0 left-0 w-full h-full object-cover opacity-0 transition-opacity duration-[3000ms] ease-in-out;
+    @apply absolute top-0 left-0 w-full h-[15rem] md:h-[20rem] lg:h-[23rem] xl:h-full object-cover opacity-0 transition-opacity duration-[3000ms] ease-in-out;
     filter: blur(0px) brightness(0.15) saturate(0.75);
     transform: scale(1.03);
   }
