@@ -4,9 +4,9 @@ date: 2025-12-18
 venue: "ACM Transactions on Graphics (SIGGRAPH Asia 2025)"
 image: "@assets/publications/teasers/2025/agarwal2025underwater.webp"
 authors:
-  - name: Atul Agarwal
+  - name: Atul Agarwal*
     lab: true
-  - name: Dhawal Sirikonda
+  - name: Dhawal Sirikonda*
     lab: true
   - name: Atharv Agashe
     lab: true

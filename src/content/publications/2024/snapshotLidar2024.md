@@ -4,9 +4,9 @@ date: 2024-06-01
 image: "@assets/publications/teasers/2024/snapshotLidar2024.webp"
 venue: "CVPR 2024"
 authors:
-  - name: Sarah Friday
+  - name: Sarah Friday*
     lab: true
-  - name: Yunzi Shi
+  - name: Yunzi Shi*
     lab: true
   - name: Yaswanth Cherivirala
     affiliation: UMich
