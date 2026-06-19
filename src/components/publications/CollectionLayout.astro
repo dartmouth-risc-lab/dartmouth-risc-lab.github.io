@@ -44,8 +44,24 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
 <BaseLayout title="" description="">
 
 <section class="px-[1rem] md:px-[3rem] lg:px-[6rem] py-12">
+  <nav
+    aria-label="Publication years"
+    class="sticky top-16 z-10 mb-10 overflow-x-auto border-b border-border bg-body/95 backdrop-blur dark:border-darkmode-border dark:bg-darkmode-body/95"
+  >
+    <div class="flex w-max gap-8">
+      {sortedYears.map((year) => (
+        <a
+          href={`#year-${year}`}
+          class="border-b-2 border-transparent py-3 text-sm font-medium text-gray-600 transition-colors hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-gray-300 dark:hover:border-darkmode-primary dark:hover:text-darkmode-primary dark:focus-visible:outline-darkmode-primary"
+        >
+          {year}
+        </a>
+      ))}
+    </div>
+  </nav>
+
   {sortedYears.map((year) => (
-    <div class="mb-12" key={year}>
+    <div id={`year-${year}`} class="mb-12 scroll-mt-36" key={year}>
       <h3 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">{year}</h3>
       <div class="flex flex-col gap-8">
         {groupedPublications[year].map((entry) => (
