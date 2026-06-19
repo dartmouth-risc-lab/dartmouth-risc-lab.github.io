@@ -31,8 +31,8 @@ const publicationVenue = entry.body ? plainify(entry.body) : null;
 
 ---
 
-<article class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-4 items-start mx-[1rem] md:mx-[4rem] lg:mx-[6rem]">
-  <div class="relative w-32 aspect-video overflow-hidden shrink-0">
+<article class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-3 items-start">
+  <div class="relative w-24 aspect-video overflow-hidden shrink-0">
     <Image
       src={pubImage}
       alt={imageAlt}
@@ -41,8 +41,8 @@ const publicationVenue = entry.body ? plainify(entry.body) : null;
     />
   </div>
 
-  <div class="flex flex-col gap-2">
-    <h4 class="text-lg font-bold">{title}</h4>
+  <div class="flex flex-col gap-1.5">
+    <h4 class="text-base font-bold">{title}</h4>
 
     {publicationVenue && (
       <p class="text-sm text-gray-500 dark:text-gray-400">{publicationVenue}</p>

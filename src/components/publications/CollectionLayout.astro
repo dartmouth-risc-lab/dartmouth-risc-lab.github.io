@@ -61,9 +61,9 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
   </nav>
 
   {sortedYears.map((year) => (
-    <div id={`year-${year}`} class="mb-12 scroll-mt-36" key={year}>
-      <h3 class="text-2xl font-semibold mb-6 border-b border-border dark:border-darkmode-border">{year}</h3>
-      <div class="flex flex-col gap-8">
+    <div id={`year-${year}`} class="mb-8 scroll-mt-36" key={year}>
+      <h3 class="text-2xl font-semibold mb-4 border-b border-border dark:border-darkmode-border">{year}</h3>
+      <div class="flex flex-col gap-4">
         {groupedPublications[year].map((entry) => (
           <PublicationCard entry={entry} />
         ))}
