@@ -103,3 +103,22 @@ const menu = [
     </div>
   </nav>
 </header>
+
+<script is:inline>
+  // Auto-close the mobile nav menu when a link is tapped. The header uses
+  // transition:persist, so the toggle checkbox would otherwise stay checked
+  // (menu open) across view transitions.
+  function setupNavAutoClose() {
+    const menu = document.getElementById("nav-menu");
+    const toggle = document.getElementById("nav-toggle");
+    if (!menu || !toggle || menu.dataset.autoClose === "true") return;
+    menu.dataset.autoClose = "true";
+    menu.addEventListener("click", (e) => {
+      if (e.target.closest("a")) {
+        toggle.checked = false;
+      }
+    });
+  }
+  setupNavAutoClose();
+  document.addEventListener("astro:after-swap", setupNavAutoClose);
+</script>
