@@ -1,5 +1,5 @@
 ---
-title: Quinton Qu
+title: Ziyuan(Quinton) Qu
 image: "@assets/people/QQ.webp"
 status: "current"
 startDate: "2024-06-15"

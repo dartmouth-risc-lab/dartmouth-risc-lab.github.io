@@ -1,11 +1,11 @@
 ---
 title: Peiran Li
-image:
+image: "@assets/people/PL.webp"
 status: "current"
 startDate: "2026-01-10"
 endDate: 
 pronouns: "she/her"
 nextStop:
 social: 
-    website: "https://www.linkedin.com/in/peiran-li-729b31383"
+    website: "https://prsteps.github.io/Peiran-Website/"
 ---

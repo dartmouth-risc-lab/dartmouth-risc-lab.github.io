@@ -1,6 +1,7 @@
 ---
 title: "Enhancing autonomous navigation by imaging hidden objects using single-photon lidar"
 date: 2025-05-01
+image: "@assets/publications/teasers/2025/enhancingICRA2025.webp"
 venue: "ICRA 2025"
 authors:
   - name: Aaron Young
@@ -12,6 +13,7 @@ authors:
     lab: true
   - name: Dan Negrut
   - name: Ramesh Raskar
+projectPdf: "https://ieeexplore.ieee.org/document/11128292"
 ---
 
 IEEE International Conference on Robotics and Automation (ICRA 2025)

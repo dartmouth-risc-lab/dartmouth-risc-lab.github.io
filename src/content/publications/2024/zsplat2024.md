@@ -4,7 +4,7 @@ date: 2024-11-01
 image: "@assets/publications/teasers/2024/zsplat2024.webp"
 venue: "ICCP & TPAMI 2024"
 authors:
-  - name: Quinton Qu
+  - name: Ziyuan Qu
     lab: true
   - name: Omkar Vengurlekar
     affiliation: ASU

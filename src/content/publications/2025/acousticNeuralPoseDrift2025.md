@@ -1,6 +1,7 @@
 ---
 title: "Acoustic Neural 3D Reconstruction Under Pose Drift"
 date: 2025-10-01
+image: "@assets/publications/teasers/2025/acousticIROS2025.webp"
 venue: "IROS 2025"
 authors:
   - name: Tianxiang Lin

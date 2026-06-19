@@ -1,0 +1,16 @@
+---
+title: "Light-Cone Shell Queries for Scalable Time-Gated Rendering"
+date: 2026-06-01
+image: "@assets/publications/teasers/2026/ellipsoidCut2026.webp"
+venue: "EGSR 2026"
+authors:
+  - name: Jack Cui
+  - name: Juhyeon Kim
+    lab: true
+  - name: Adithya Pediredla
+    lab: true
+  - name: Wojciech Jarosz
+    affiliation: Dartmouth College
+---
+
+Eurographics Symposium on Rendering (EGSR 2026), Computer Graphics Forum, Volume 45 (2026), Number 4
