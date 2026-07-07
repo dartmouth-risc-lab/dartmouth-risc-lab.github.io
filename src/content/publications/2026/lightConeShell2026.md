@@ -13,4 +13,4 @@ authors:
     affiliation: Dartmouth College
 ---
 
-Eurographics Symposium on Rendering (EGSR 2026), Computer Graphics Forum, Volume 45 (2026), Number 4
+Eurographics Symposium on Rendering (EGSR 2026)
