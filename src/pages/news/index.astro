@@ -94,6 +94,18 @@ const patents = (patentsEntry?.data.patents ?? []).map((item) => ({
   priority: 6,
 }));
 
+const parseDate = (date) => {
+  if (date instanceof Date) return date;
+
+  const dateOnlyMatch = String(date).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (dateOnlyMatch) {
+    const [, year, month, day] = dateOnlyMatch;
+    return new Date(Number(year), Number(month) - 1, Number(day));
+  }
+
+  return new Date(date);
+};
+
 const allNews = [
   ...manualNews,
   ...awards,
@@ -104,13 +116,13 @@ const allNews = [
 ]
   .filter((item) => item.date)
   .sort((a, b) => {
-    const dateDiff = new Date(b.date).getTime() - new Date(a.date).getTime();
+    const dateDiff = parseDate(b.date).getTime() - parseDate(a.date).getTime();
     if (dateDiff !== 0) return dateDiff;
     return a.priority - b.priority;
   });
 
 const formatDate = (date) =>
-  new Date(date).toLocaleDateString("en-US", {
+  parseDate(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",

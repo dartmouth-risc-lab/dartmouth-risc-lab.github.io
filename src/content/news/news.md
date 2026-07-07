@@ -1,6 +1,8 @@
 ---
 title: "News"
 news:
+  - date: "2026-07-07"
+    title: "One paper accepted to ECCV 2026"
   - date: "2026-05-26"
     title: "Two papers accepted to EGSR 2026 - CGF"
   - date: "2026-05-15"
