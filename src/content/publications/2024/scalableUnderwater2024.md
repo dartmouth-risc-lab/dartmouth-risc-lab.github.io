@@ -1,7 +1,7 @@
 ---
 title: "Scalable underwater assembly with reconfigurable visual fiducials"
-date: 2023-08-01
-image: "@assets/publications/teasers/2023/scalableUnderwater2023.webp"
+date: 2024-01-01
+image: "@assets/publications/teasers/2024/scalableUnderwater2024.webp"
 venue: "ICRA 2024"
 authors:
   - name: Sam Lensgraf
