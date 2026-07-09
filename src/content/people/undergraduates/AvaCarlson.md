@@ -1,9 +1,9 @@
 ---
 title: Ava Carlson
-status: "current"
+status: "graduated"
 image: "@assets/people/AC.webp"
 startDate: "2025-08-10"
-endDate:
+endDate: "2026-07-09"
 pronouns: "she/her"
 nextStop:
 social: 
