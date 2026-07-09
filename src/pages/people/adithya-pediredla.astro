@@ -7,8 +7,6 @@ import { Content as AwardsContent } from "../../data/adithya-pediredla/awards.md
 import { Content as PoemsContent } from "../../data/adithya-pediredla/poems.md";
 import { Content as PublicationsContent } from "../../data/adithya-pediredla/old_publications.md";
 import { Content as TeachingContent } from "../../data/adithya-pediredla/teaching.md";
-
-import {Content as PatentContent} from "../../data/adithya-pediredla/patents.md";
 ---
 
 <BaseLayout
@@ -57,10 +55,8 @@ import {Content as PatentContent} from "../../data/adithya-pediredla/patents.md"
           <div class="flex flex-wrap gap-3 mb-8">
             <button class="profile-tab active-tab" data-tab="bio">Bio</button>
             <button class="profile-tab" data-tab="awards">Awards</button>
-            <button class="profile-tab" data-tab="publications">Publications</button>
-            <button class="profile-tab" data-tab="cv">CV</button>
+            <button class="profile-tab" data-tab="publications">Publications (prior 2022)</button>
             <button class="profile-tab" data-tab="poems">My తెలుగు Poems</button>
-            <button class="profile-tab" data-tab="patents">Patents</button>
             <button class="profile-tab" data-tab="teaching">Teaching</button>
           </div>
 
@@ -86,29 +82,10 @@ import {Content as PatentContent} from "../../data/adithya-pediredla/patents.md"
           </div>
 
           <div id="publications" class="tab-panel hidden">
-            <h2 class="text-2xl font-semibold mb-4">Publications before Dartmouth</h2>
+            <h2 class="text-2xl font-semibold mb-4">Publications (prior 2022)</h2>
             <div class="profile-markdown">
               <PublicationsContent />
             </div>
-          </div>
-
-          <div id="patents" class="tab-panel hidden">
-            <h2 class="text-2xl font-semibold mb-4">Patents</h2>
-            <div class="profile-markdown">
-              <PatentContent />
-            </div>
-          </div>
-
-          <div id="cv" class="tab-panel hidden">
-            <h2 class="text-2xl font-semibold mb-4">CV</h2>
-            <a
-              class="profile-link"
-              href="https://www.dropbox.com/scl/fi/1t3we9nm1iwyvjxbbd7e1/Pediredla_CV.pdf?rlkey=ntj9ar6l4x6z2kcdphe1lb3o5&st=ye5h3tpx&raw=1"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View CV
-            </a>
           </div>
 
           <div id="poems" class="tab-panel hidden">
