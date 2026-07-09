@@ -18,7 +18,7 @@ const roleLabels = {
   phd: "PhD",
   masters: "Masters",
   undergraduates: "Undergraduate",
-  visitors: "Visitor",
+  visitors: "Visitors",
 };
 
 const getFolder = (entry) => entry.id.split("/")[0];
@@ -159,7 +159,7 @@ const formerMembers = entries
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             {postdocAlumni.map((entry) => (
-              <StudentCard entry={entry} listOnly roleLabel="Postdoc" formerLabel="Alumni" />
+              <StudentCard entry={entry} listOnly />
             ))}
           </div>
         </section>
@@ -172,7 +172,7 @@ const formerMembers = entries
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             {phdAlumni.map((entry) => (
-              <StudentCard entry={entry} listOnly roleLabel="PhD" formerLabel="Alumni" />
+              <StudentCard entry={entry} listOnly />
             ))}
           </div>
         </section>
@@ -185,7 +185,7 @@ const formerMembers = entries
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             {mastersAlumni.map((entry) => (
-              <StudentCard entry={entry} listOnly roleLabel="Masters" formerLabel="Alumni" />
+              <StudentCard entry={entry} listOnly />
             ))}
           </div>
         </section>
@@ -198,7 +198,7 @@ const formerMembers = entries
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             {undergraduateAlumni.map((entry) => (
-              <StudentCard entry={entry} listOnly roleLabel="Undergraduate" formerLabel="Alumni" />
+              <StudentCard entry={entry} listOnly />
             ))}
           </div>
         </section>
@@ -211,7 +211,7 @@ const formerMembers = entries
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             {visitors.map((entry) => (
-              <StudentCard entry={entry} listOnly roleLabel={roleLabels[getFolder(entry)]} />
+              <StudentCard entry={entry} listOnly />
             ))}
           </div>
         </section>
@@ -227,7 +227,6 @@ const formerMembers = entries
               <StudentCard
                 entry={entry}
                 listOnly
-                formerLabel="Former Lab Member"
               />
             ))}
           </div>

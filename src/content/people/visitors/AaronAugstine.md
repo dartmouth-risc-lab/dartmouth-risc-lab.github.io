@@ -1,5 +1,5 @@
 ---
-title: Aaron Agustine
+title: Aaron Augstine
 image: 
 startDate: "2024-06-15"
 endDate: "2024-08-15"
