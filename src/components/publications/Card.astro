@@ -1,7 +1,6 @@
 ---
 import type { PubEntry } from "@/types";
 import { plainify } from "@lib/textConverter";
-import { formatDate } from "@lib/formatDate";
 import { Image } from "astro:assets";
 import { FaGlobe } from "react-icons/fa6";
 import { FaCode } from "react-icons/fa6";
@@ -23,7 +22,8 @@ const {
   projectCode,
   projectPdf,
   imageAlt,
-  award
+  award,
+  keywords = [],
 } = entry.data;
 
 const pubImage = entry.data.image ? entry.data.image : ExampleImage;
@@ -64,6 +64,20 @@ const publicationVenue = entry.body ? plainify(entry.body) : null;
           </Fragment>
         ))}
       </p>
+    )}
+
+    {keywords.length > 0 && (
+      <div class="flex flex-wrap gap-2">
+        {keywords.map((keyword) => (
+          <button
+            type="button"
+            data-keyword-trigger={keyword}
+            class="rounded-full border border-border px-3 py-1 text-xs font-medium text-gray-700 transition hover:border-primary hover:text-primary dark:border-darkmode-border dark:text-gray-300 dark:hover:border-darkmode-primary dark:hover:text-darkmode-primary"
+          >
+            {keyword}
+          </button>
+        ))}
+      </div>
     )}
 
     <div class="flex gap-4 text-sm text-blue-600 underline items-center">

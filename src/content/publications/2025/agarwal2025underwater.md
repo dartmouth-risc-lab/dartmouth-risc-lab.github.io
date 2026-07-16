@@ -3,6 +3,7 @@ title: "Underwater Optical Backscatter Communication using Acousto-Optic Beam St
 date: 2025-12-18
 venue: "ACM Transactions on Graphics (SIGGRAPH Asia 2025)"
 image: "@assets/publications/teasers/2025/agarwal2025underwater.webp"
+keywords: ["Wave Optics", "Underwater"]
 authors:
   - name: Atul Agarwal*
     lab: true

@@ -93,6 +93,7 @@ const publications = defineCollection({
       date: z.date().optional(),
       image: image().optional(),
       imageAlt: z.string().default(""),
+      keywords: z.array(z.string()).default([]),
       venue: z.string().optional(),
       authors: z.array(z.object({
         name: z.string(),

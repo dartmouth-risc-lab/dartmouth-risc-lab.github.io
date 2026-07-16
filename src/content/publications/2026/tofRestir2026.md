@@ -2,6 +2,7 @@
 title: "ToF ReSTIR: Time-of-Flight Rendering with Spatio-temporal Reservoir Resampling"
 date: 2026-05-12
 image: "@assets/publications/teasers/2026/tofRestir2026.webp"
+keywords: ["Rendering", "Time-of-Flight / LiDAR"]
 venue: "ACM Transactions on Graphics (SIGGRAPH 2026)"
 authors:
   - name: Juhyeon Kim

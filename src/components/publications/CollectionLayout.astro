@@ -3,7 +3,21 @@ import BaseLayout from "@components/base/BaseLayout.astro";
 import PublicationCard from "@/components/publications/Card.astro";
 import { getCollection } from "astro:content";
 
+const publicationKeywords = [
+  "Rendering",
+  "Time-of-Flight / LiDAR",
+  "Event Cameras",
+  "Wave Optics",
+  "Acoustic / Sonar",
+  "Sensor Fusion",
+  "Underwater",
+  "Robotics",
+] as const;
+
 const publications = await getCollection("publications");
+const keywordCounts = Object.fromEntries(
+  publicationKeywords.map((keyword) => [keyword, 0]),
+) as Record<(typeof publicationKeywords)[number], number>;
 
 // Group by year
 const groupedPublications: Record<string, typeof publications> = {};
@@ -19,6 +33,12 @@ const getPublicationYear = (date: string | Date) => {
 for (const pub of publications) {
   const rawDate = pub.data.date;
   if (!rawDate) continue;
+
+  pub.data.keywords.forEach((keyword) => {
+    if (keyword in keywordCounts) {
+      keywordCounts[keyword as keyof typeof keywordCounts] += 1;
+    }
+  });
 
   const year = getPublicationYear(rawDate);
 
@@ -43,7 +63,39 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
 
 <BaseLayout title="" description="">
 
-<section class="px-[1rem] md:px-[3rem] lg:px-[6rem] py-12">
+<section class="px-[1rem] md:px-[3rem] lg:px-[6rem] py-12" data-publications-root>
+  <div class="mb-8">
+    <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200" for="publication-search">
+      Search publications
+    </label>
+    <input
+      id="publication-search"
+      type="search"
+      placeholder="Search by title, author, venue, award, or year"
+      autocomplete="off"
+      class="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-txt-p shadow-sm outline-none transition focus:border-primary dark:border-darkmode-border dark:bg-darkmode-body dark:text-darkmode-txt-p dark:focus:border-darkmode-primary"
+    />
+  </div>
+
+  <div class="mb-8 flex flex-wrap gap-2">
+    <button
+      type="button"
+      data-keyword-trigger=""
+      class="rounded-full border border-border px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-primary hover:text-primary dark:border-darkmode-border dark:text-gray-300 dark:hover:border-darkmode-primary dark:hover:text-darkmode-primary"
+    >
+      All
+    </button>
+    {publicationKeywords.map((keyword) => (
+      <button
+        type="button"
+        data-keyword-trigger={keyword}
+        class="rounded-full border border-border px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-primary hover:text-primary dark:border-darkmode-border dark:text-gray-300 dark:hover:border-darkmode-primary dark:hover:text-darkmode-primary"
+      >
+        {keyword} ({keywordCounts[keyword]})
+      </button>
+    ))}
+  </div>
+
   <nav
     aria-label="Publication years"
     class="sticky top-16 z-10 mb-10 overflow-x-auto border-b border-border bg-body/95 backdrop-blur dark:border-darkmode-border dark:bg-darkmode-body/95"
@@ -52,6 +104,7 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
       {sortedYears.map((year) => (
         <a
           href={`#year-${year}`}
+          data-year-link={year}
           class="border-b-2 border-transparent py-3 text-sm font-medium text-gray-600 transition-colors hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-gray-300 dark:hover:border-darkmode-primary dark:hover:text-darkmode-primary dark:focus-visible:outline-darkmode-primary"
         >
           {year}
@@ -60,12 +113,33 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
     </div>
   </nav>
 
+  <p
+    id="publication-search-empty"
+    class="mb-8 hidden rounded-lg border border-border px-4 py-3 text-sm text-gray-600 dark:border-darkmode-border dark:text-gray-300"
+  >
+    No publications matched that search.
+  </p>
+
   {sortedYears.map((year) => (
-    <div id={`year-${year}`} class="mb-8 scroll-mt-36" key={year}>
+    <div id={`year-${year}`} class="mb-8 scroll-mt-36" key={year} data-year-section={year}>
       <h3 class="text-2xl font-semibold mb-4 border-b border-border dark:border-darkmode-border">{year}</h3>
       <div class="flex flex-col gap-4">
         {groupedPublications[year].map((entry) => (
-          <PublicationCard entry={entry} />
+          <div
+            data-publication-item
+            data-search-text={[
+              entry.data.title,
+              entry.data.venue ?? "",
+              entry.data.award ?? "",
+              year,
+              ...(entry.data.authors?.map((author) => author.name) ?? []),
+            ]
+              .join(" ")
+              .toLowerCase()}
+            data-search-keywords={entry.data.keywords.map((keyword) => keyword.toLowerCase()).join("|")}
+          >
+            <PublicationCard entry={entry} />
+          </div>
         ))}
       </div>
     </div>
@@ -75,5 +149,140 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
     * indicates joint first author.
   </p>
 </section>
+
+<script is:inline>
+  function initPublicationSearch() {
+    const root = document.querySelector("[data-publications-root]");
+    const input = document.querySelector("#publication-search");
+    const emptyState = document.querySelector("#publication-search-empty");
+    const yearSections = Array.from(document.querySelectorAll("[data-year-section]"));
+    const yearLinks = Array.from(document.querySelectorAll("[data-year-link]"));
+    const keywordTriggers = Array.from(document.querySelectorAll("[data-keyword-trigger]"));
+
+    if (
+      !(root instanceof HTMLElement) ||
+      !(input instanceof HTMLInputElement) ||
+      !(emptyState instanceof HTMLElement)
+    ) {
+      return;
+    }
+
+    if (root.dataset.searchBound === "true") {
+      return;
+    }
+
+    root.dataset.searchBound = "true";
+
+    const getActiveKeyword = () =>
+      new URLSearchParams(window.location.search).get("keyword")?.trim() ?? "";
+
+    const updateUrl = (query, keyword) => {
+      const nextParams = new URLSearchParams(window.location.search);
+
+      if (query) {
+        nextParams.set("q", query);
+      } else {
+        nextParams.delete("q");
+      }
+
+      if (keyword) {
+        nextParams.set("keyword", keyword);
+      } else {
+        nextParams.delete("keyword");
+      }
+
+      const nextUrl = nextParams.toString()
+        ? `${window.location.pathname}?${nextParams.toString()}`
+        : window.location.pathname;
+
+      history.replaceState(null, "", nextUrl);
+    };
+
+    const applyFilter = () => {
+      const query = input.value.trim().toLowerCase();
+      const activeKeyword = getActiveKeyword().toLowerCase();
+      let visibleSections = 0;
+
+      yearSections.forEach((section) => {
+        if (!(section instanceof HTMLElement)) return;
+
+        const items = Array.from(section.querySelectorAll("[data-publication-item]"));
+        let visibleItems = 0;
+
+        items.forEach((item) => {
+          if (!(item instanceof HTMLElement)) return;
+
+          const haystack = item.dataset.searchText ?? "";
+          const itemKeywords = (item.dataset.searchKeywords ?? "").split("|").filter(Boolean);
+          const queryMatches = query.length === 0 || haystack.includes(query);
+          const keywordMatches =
+            activeKeyword.length === 0 || itemKeywords.includes(activeKeyword);
+          const matches = queryMatches && keywordMatches;
+          item.style.display = matches ? "" : "none";
+
+          if (matches) visibleItems += 1;
+        });
+
+        const year = section.dataset.yearSection ?? "";
+        section.style.display = visibleItems > 0 ? "" : "none";
+
+        const yearLink = yearLinks.find(
+          (link) => link instanceof HTMLElement && link.dataset.yearLink === year,
+        );
+
+        if (yearLink instanceof HTMLElement) {
+          yearLink.style.display = visibleItems > 0 ? "" : "none";
+        }
+
+        if (visibleItems > 0) visibleSections += 1;
+      });
+
+      emptyState.style.display = visibleSections > 0 ? "none" : "";
+
+      keywordTriggers.forEach((trigger) => {
+        if (!(trigger instanceof HTMLElement)) return;
+
+        const triggerKeyword = (trigger.dataset.keywordTrigger ?? "").toLowerCase();
+        const isActive =
+          (activeKeyword.length === 0 && triggerKeyword.length === 0) ||
+          triggerKeyword === activeKeyword;
+
+        trigger.classList.toggle("border-primary", isActive);
+        trigger.classList.toggle("text-primary", isActive);
+        trigger.classList.toggle("dark:border-darkmode-primary", isActive);
+        trigger.classList.toggle("dark:text-darkmode-primary", isActive);
+      });
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const initialQuery = params.get("q");
+
+    if (initialQuery) {
+      input.value = initialQuery;
+    }
+
+    applyFilter();
+
+    input.addEventListener("input", () => {
+      const nextQuery = input.value.trim();
+      updateUrl(nextQuery, getActiveKeyword());
+      applyFilter();
+    });
+
+    keywordTriggers.forEach((trigger) => {
+      if (!(trigger instanceof HTMLElement)) return;
+
+      trigger.addEventListener("click", () => {
+        const selectedKeyword = trigger.dataset.keywordTrigger ?? "";
+        const nextKeyword = selectedKeyword === getActiveKeyword() ? "" : selectedKeyword;
+        updateUrl(input.value.trim(), nextKeyword);
+        applyFilter();
+      });
+    });
+  }
+
+  initPublicationSearch();
+  document.addEventListener("astro:after-swap", initPublicationSearch);
+</script>
 
 </BaseLayout>

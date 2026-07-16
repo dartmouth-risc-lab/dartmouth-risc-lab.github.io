@@ -2,6 +2,7 @@
 title: "Enhancing autonomous navigation by imaging hidden objects using single-photon lidar"
 date: 2025-05-01
 image: "@assets/publications/teasers/2025/enhancingICRA2025.webp"
+keywords: ["Time-of-Flight / LiDAR", "Robotics"]
 venue: "ICRA 2025"
 authors:
   - name: Aaron Young

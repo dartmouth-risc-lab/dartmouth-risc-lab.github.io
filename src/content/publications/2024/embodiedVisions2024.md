@@ -2,6 +2,7 @@
 title: "Embodied Visions: Interactive Installations That Reimagine Bodily Presence in Digital Imaging Apparatuses as Shadows"
 date: 2024-12-01
 image: "@assets/publications/teasers/2024/embodiedVisions2024.webp"
+keywords: ["Rendering"]
 venue: "Arts paper at SIGGRAPH Asia 2024"
 authors:
   - name: Yunzi Shi

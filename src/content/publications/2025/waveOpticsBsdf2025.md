@@ -2,6 +2,7 @@
 title: "A wave-optics BSDF for correlated scatterers"
 date: 2025-07-01
 image: "@assets/publications/teasers/2025/waveOpticsBSDF2025.webp"
+keywords: ["Rendering", "Wave Optics"]
 venue: "Computer Graphics Forum"
 authors:
   - name: Ruomai Yang

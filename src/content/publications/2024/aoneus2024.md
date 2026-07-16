@@ -2,6 +2,7 @@
 title: "AONeuS: A neural rendering framework for acoustic-optical sensor fusion"
 date: 2024-07-01
 image: "@assets/publications/teasers/2024/aoneus2024.webp"
+keywords: ["Rendering", "Acoustic / Sonar", "Sensor Fusion"]
 venue: "SIGGRAPH 2024 Conference Track"
 authors:
   - name: Mohamad Qaadri

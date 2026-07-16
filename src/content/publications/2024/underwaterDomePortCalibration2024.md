@@ -2,6 +2,7 @@
 title: "Underwater Dome-Port Camera Calibration: Modeling of Refraction and Offset through N-Sphere Camera Model"
 date: 2024-05-01
 image: "@assets/publications/teasers/2024/calibrationICRA2024.webp"
+keywords: ["Underwater", "Robotics"]
 venue: "ICRA 2024"
 authors:
   - name: Monika Roznere
