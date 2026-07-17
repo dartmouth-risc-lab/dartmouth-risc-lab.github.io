@@ -2,7 +2,7 @@
 title: "Event fields: Capturing light fields at high speed, resolution, and dynamic range"
 date: 2025-06-01
 image: "@assets/publications/teasers/2025/eventFields2025.webp"
-keywords: ["Event Cameras"]
+keywords: ["Event Cameras", "Sensor Fusion"]
 venue: "CVPR 2025 (Highlight)"
 authors:
   - name: Ziyuan Qu

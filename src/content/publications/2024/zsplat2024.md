@@ -2,7 +2,7 @@
 title: "Z-Splat: Z-Axis Gaussian Splatting for Camera-Sonar Fusion"
 date: 2024-11-01
 image: "@assets/publications/teasers/2024/zsplat2024.webp"
-keywords: ["Rendering", "Acoustic / Sonar", "Sensor Fusion"]
+keywords: ["Rendering", "Acoustic / Sonar", "Sensor Fusion", "Underwater"]
 venue: "ICCP & TPAMI 2024"
 authors:
   - name: Ziyuan Qu

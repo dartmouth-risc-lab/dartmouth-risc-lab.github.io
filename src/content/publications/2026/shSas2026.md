@@ -2,7 +2,7 @@
 title: "SH-SAS: An Implicit Neural Representation for Complex Spherical-Harmonic Scattering Fields for 3D Synthetic Aperture Sonar"
 date: 2026-03-01
 image: "@assets/publications/teasers/2026/SHSAS2026.webp"
-keywords: ["Acoustic / Sonar"]
+keywords: ["Rendering", "Acoustic / Sonar"]
 venue: "3DV 2026"
 authors:
   - name: Omkar Vengurlekar

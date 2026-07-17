@@ -2,7 +2,7 @@
 title: "High-speed Imaging through Turbulence with Event-based Light Fields"
 date: 2026-07-07
 image: "@assets/publications/teasers/2026/eventLightFieldTurbulence2026.webp"
-keywords: ["Event Cameras"]
+keywords: ["Event Cameras", "Sensor Fusion"]
 venue: "European Conference on Computer Vision (ECCV 2026)"
 authors:
   - name: Yu-Hsiang Huang
