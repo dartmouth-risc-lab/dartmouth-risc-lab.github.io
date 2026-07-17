@@ -2,7 +2,7 @@
 title: "Megahertz Light Steering without Moving Parts"
 date: 2023-06-01
 image: "@assets/publications/teasers/2023/megahertzLight2023.webp"
-keywords: ["Time-of-Flight / LiDAR"]
+keywords: ["Time-of-Flight / LiDAR", "Acousto-Optics"]
 venue: "CVPR 2023"
 authors:
   - name: Adithya Pediredla
