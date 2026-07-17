@@ -82,7 +82,8 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
     <button
       type="button"
       data-keyword-trigger=""
-      class="rounded-full border border-border px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-primary hover:text-primary dark:border-darkmode-border dark:text-gray-300 dark:hover:border-darkmode-primary dark:hover:text-darkmode-primary"
+      aria-pressed="false"
+      class="rounded-full border border-border px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-primary hover:text-primary aria-pressed:border-laser aria-pressed:bg-laser aria-pressed:text-black dark:border-darkmode-border dark:text-gray-300 dark:hover:border-darkmode-primary dark:hover:text-darkmode-primary dark:aria-pressed:border-laser dark:aria-pressed:bg-laser dark:aria-pressed:text-black"
     >
       All
     </button>
@@ -90,7 +91,8 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
       <button
         type="button"
         data-keyword-trigger={keyword}
-        class="rounded-full border border-border px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-primary hover:text-primary dark:border-darkmode-border dark:text-gray-300 dark:hover:border-darkmode-primary dark:hover:text-darkmode-primary"
+        aria-pressed="false"
+        class="rounded-full border border-border px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-primary hover:text-primary aria-pressed:border-laser aria-pressed:bg-laser aria-pressed:text-black dark:border-darkmode-border dark:text-gray-300 dark:hover:border-darkmode-primary dark:hover:text-darkmode-primary dark:aria-pressed:border-laser dark:aria-pressed:bg-laser dark:aria-pressed:text-black"
       >
         {keyword} ({keywordCounts[keyword]})
       </button>
@@ -248,10 +250,7 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
           (activeKeyword.length === 0 && triggerKeyword.length === 0) ||
           triggerKeyword === activeKeyword;
 
-        trigger.classList.toggle("border-primary", isActive);
-        trigger.classList.toggle("text-primary", isActive);
-        trigger.classList.toggle("dark:border-darkmode-primary", isActive);
-        trigger.classList.toggle("dark:text-darkmode-primary", isActive);
+        trigger.setAttribute("aria-pressed", String(isActive));
       });
     };
 
