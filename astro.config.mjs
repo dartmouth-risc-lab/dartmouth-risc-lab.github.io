@@ -11,7 +11,7 @@ import remarkMath from "remark-math";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://risclab-dartmouth.com",
+  site: "https://risclab-dartmouth.org",
   base: "/",
   trailingSlash: "ignore",
   prefetch: {

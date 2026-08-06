@@ -599,7 +599,7 @@ GitHub → Actions
 Production URL:
 
 ```text
-https://risclab-dartmouth.com
+https://risclab-dartmouth.org
 ```
 
 GitHub Pages repository:

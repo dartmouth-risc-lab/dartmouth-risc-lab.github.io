@@ -3,4 +3,4 @@ Allow: /
 
 Disallow: /api/*
 
-Sitemap: https://risclab-dartmouth.com/sitemap-index.xml
+Sitemap: https://risclab-dartmouth.org/sitemap-index.xml
