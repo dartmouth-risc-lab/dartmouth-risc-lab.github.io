@@ -17,6 +17,7 @@ authors:
     affiliation: U Maryland
   - name: Michael Kaess
     affiliation: CMU
+projectPage: "https://www.cs.cmu.edu/~tianxian/publication/lin25iros/"
 projectPdf: "https://arxiv.org/pdf/2503.08930"
 ---
 

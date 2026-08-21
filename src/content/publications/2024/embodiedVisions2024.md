@@ -11,6 +11,7 @@ authors:
     affiliation: Dartmouth College
   - name: Adithya Pediredla
     lab: true
+projectPage: "https://shiyunzi.info/Embodied-Visions-Exhibition"
 projectPdf: "https://dl.acm.org/doi/full/10.1145/3680530.3695436"
 ---
 

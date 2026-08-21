@@ -12,6 +12,7 @@ authors:
     lab: true
   - name: Wojciech Jarosz
     affiliation: Dartmouth College
+projectPage: "https://jackcui.ca/publications/lightcone/"
 ---
 
 Eurographics Symposium on Rendering (EGSR 2026)

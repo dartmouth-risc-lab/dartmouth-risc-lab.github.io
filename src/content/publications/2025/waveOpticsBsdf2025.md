@@ -12,6 +12,7 @@ authors:
     lab: true
   - name: Wojciech Jarosz
     affiliation: Dartmouth College
+projectPage: "https://cs.dartmouth.edu/~wjarosz/publications/yang25wave.html"
 projectPdf: "https://cs.dartmouth.edu/~wjarosz/publications/yang25wave-small.pdf"
 ---
 

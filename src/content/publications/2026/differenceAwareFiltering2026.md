@@ -11,6 +11,7 @@ authors:
     affiliation: Dartmouth College
   - name: Adithya Pediredla
     lab: true
+projectPage: "https://juhyeonkim95.github.io/project-pages/event_svgf/"
 ---
 
 Eurographics Symposium on Rendering (EGSR 2026)

@@ -14,6 +14,7 @@ authors:
     lab: true
   - name: Dan Negrut
   - name: Ramesh Raskar
+projectPage: "https://camera-culture.github.io/nlos-aided-autonomous-navigation/"
 projectPdf: "https://ieeexplore.ieee.org/document/11128292"
 ---
 

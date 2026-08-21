@@ -13,6 +13,7 @@ authors:
     affiliation: U Maryland
   - name: Adithya Pediredla
     lab: true
+projectPage: "https://nevindu.github.io/publications/shutterevents/"
 ---
 
 IEEE International Conference on Computational Photography (ICCP 2026)
