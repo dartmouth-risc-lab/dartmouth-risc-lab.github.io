@@ -5,10 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+# Least privilege by default; the two jobs below opt into only what they need.
+permissions: {}
 
 concurrency:
   group: pages
@@ -17,13 +15,22 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # The build runs third-party npm code (install scripts, bundlers), so it must
+    # never hold the Pages deployment credentials.
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - run: npm install --legacy-peer-deps
+      # `npm ci` installs exactly what package-lock.json pins. `npm install`
+      # re-resolves the "^" ranges and can silently pull newly published
+      # (possibly compromised) versions into a production deploy.
+      - run: npm ci --legacy-peer-deps
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -32,6 +39,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

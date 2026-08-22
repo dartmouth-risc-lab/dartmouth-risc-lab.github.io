@@ -29,6 +29,38 @@ const baseUrl = "https://risclab-dartmouth.org";
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!--
+      Content Security Policy. GitHub Pages cannot send real response headers, so
+      this is delivered as a meta tag. Caveats of that delivery method:
+        - frame-ancestors / X-Frame-Options cannot be set this way, so
+          clickjacking protection is not available on Pages.
+        - 'unsafe-inline' is required for script-src because Astro emits inline
+          scripts (ClientRouter, Tooltips options) and gtag.js is configured
+          inline. This is therefore defense-in-depth against injected external
+          scripts, not a complete XSS mitigation.
+      Note the 'unsafe-hashes' + inline handler need: katex auto-render is wired
+      up with an onload="" attribute further down this file.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               base-uri 'self';
+               object-src 'none';
+               form-action 'self';
+               script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com;
+               script-src-attr 'unsafe-inline';
+               style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+               font-src 'self' data: https://cdn.jsdelivr.net;
+               img-src 'self' data: https:;
+               media-src 'self' data: https:;
+               frame-src https://www.youtube.com https://www.youtube-nocookie.com;
+               connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
+               upgrade-insecure-requests"
+    />
+
+    <!-- Headers GitHub Pages cannot set are approximated with meta where possible -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
     <!-- favicon -->
     <link
       rel="apple-touch-icon"
