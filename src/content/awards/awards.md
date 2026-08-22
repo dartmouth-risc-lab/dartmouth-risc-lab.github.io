@@ -7,6 +7,18 @@ awards:
     recipient: "Ram Bhaskara"
     result: "Best Presentation Winner"
 
+  - date: "2026-01-01"
+    title: "ICCP 2026"
+    awardLink: ""
+    recipient: "Ankit Burudgunte & Nevindu Batagoda"
+    result: "Travel Grant"
+
+  - date: "2026-01-01"
+    title: "EGSR 2026"
+    awardLink: ""
+    recipient: "Juhyeon Kim"
+    result: "Travel Grant"
+
   - date: "2025-09-10"
     title: "Guarini PhD Innovation Program"
     awardLink: ""
