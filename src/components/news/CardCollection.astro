@@ -38,13 +38,43 @@ const presentations = (presentationsEntry?.data.presentations ?? []).map((item) 
   priority: 4,
 }));
 
-const publications = (await getCollection("publications")).map((entry) => ({
-  date: entry.data.date,
-  type: "Publication",
-  title: entry.data.title,
-  link: "/publications/",
-  priority: 5,
-}));
+// Papers at the same conference and year (e.g. "SIGGRAPH Asia 2026") share one
+// news item. Venue strings vary ("ACM Transactions on Graphics (SIGGRAPH Asia 2026)",
+// "SIGGRAPH Asia 2026 Conference Track"), so group on the conference name + year.
+const conferenceKey = (venue = "") =>
+  venue.match(/\b(SIGGRAPH Asia|SIGGRAPH|EGSR|ICCP|CVPR|ICCV|ECCV|ICRA|IROS|3DV) \d{4}\b/)?.[0];
+const numberWords = ["", "One", "Two", "Three", "Four", "Five", "Six"];
+
+const publicationGroups = new Map();
+for (const entry of await getCollection("publications")) {
+  const paper = {
+    date: entry.data.date,
+    title: entry.data.title,
+    venue: entry.data.venue,
+    // Project page when there is one, otherwise the paper's own page on this site.
+    link: entry.data.projectPage || `/publications/${entry.id.split("/").pop()}/`,
+  };
+  const key = conferenceKey(entry.data.venue) ?? entry.id;
+  publicationGroups.set(key, [...(publicationGroups.get(key) ?? []), paper]);
+}
+
+const publications = [...publicationGroups.entries()].map(([key, papers]) =>
+  papers.length === 1
+    ? {
+        date: papers[0].date,
+        type: "Publication",
+        title: papers[0].venue ? `${papers[0].title} — ${papers[0].venue}` : papers[0].title,
+        link: papers[0].link,
+        priority: 5,
+      }
+    : {
+        date: papers.map((p) => p.date).filter(Boolean).sort((a, b) => b - a)[0],
+        type: "Publication",
+        title: `${numberWords[papers.length] ?? papers.length} papers at ${key}`,
+        papers,
+        priority: 5,
+      }
+);
 
 const patentsEntry = await getEntry("patents", "patents");
 const patents = (patentsEntry?.data.patents ?? []).map((item) => ({
@@ -69,7 +99,7 @@ const allNews = [
     if (dateDiff !== 0) return dateDiff;
     return a.priority - b.priority;
   })
-  .slice(0, 3);
+  .slice(0, 4);
 ---
 
 <section class="w-full mx-auto">
@@ -78,15 +108,29 @@ const allNews = [
   </h1>
 
   <div class="space-y-3">
-    {allNews.map((entry) => (
-      <a
-        href={entry.link}
-        class="block border-b border-border dark:border-darkmode-border pb-3 hover:underline"
-      >
-        <span class="font-semibold">{entry.type}</span>
-        {" — "}
-        <span>{entry.title}</span>
-      </a>
-    ))}
+    {allNews.map((entry) =>
+      entry.papers ? (
+        <div class="border-b border-border dark:border-darkmode-border pb-3">
+          <span class="font-semibold">{entry.type}</span>
+          {" — "}
+          <span>{entry.title}:</span>
+          {entry.papers.map((paper, i) => (
+            <>
+              {i === 0 ? " " : "; "}
+              <a href={paper.link} class="hover:underline italic">{paper.title}</a>
+            </>
+          ))}
+        </div>
+      ) : (
+        <a
+          href={entry.link}
+          class="block border-b border-border dark:border-darkmode-border pb-3 hover:underline"
+        >
+          <span class="font-semibold">{entry.type}</span>
+          {" — "}
+          <span>{entry.title}</span>
+        </a>
+      )
+    )}
   </div>
 </section>

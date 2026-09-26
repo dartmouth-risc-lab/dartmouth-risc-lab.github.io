@@ -4,12 +4,6 @@ Ryan Po, Adithya Pediredla, Ioannis Gkioulekas
 CVPR, 2022  
 [paper](https://imaging.cs.cmu.edu/adaptive_gating/assets/adaptive-gating.pdf) | [project page](https://imaging.cs.cmu.edu/adaptive_gating/) | [code](https://anonymous.4open.science/r/adaptive_gating-D53A/)
 
-#### [Optimized Virtual Optical Waveguides Enhance Light Throughput in Scattering Media](https://assets.researchsquare.com/files/rs-778793/v1_covered.pdf?c=1631876182)
-
-Adithya Pediredla, Matteo Giuseppe Scopelliti, Srinivasa Narasimhan, Maysam Chamanzar, Ioannis Gkioulekas  
-Under review, 2021  
-[paper](https://assets.researchsquare.com/files/rs-778793/v1_covered.pdf?c=1631876182) | [code](https://www.dropbox.com/scl/fo/rlzrwj7tak2ag0x6mztzo/APA7A_vyZgJxYr1nIzIRgLo?rlkey=ihcz35v45odryj2wpb5ua8i43&e=1&dl=0)
-
 #### [Overcoming the Tradeoff Between Confinement and Focal Distance Using Virtual Ultrasonic Optical Waveguides](https://arxiv.org/abs/2003.00047)
 
 Matteo Giuseppe Scopelliti, Hengji Huang, Adithya Pediredla, Srinivasa Narasimhan, Ioannis Gkioulekas, Maysam Chamanzar  

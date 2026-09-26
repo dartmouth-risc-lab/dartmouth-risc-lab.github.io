@@ -1,6 +1,20 @@
 ---
 title: ""
 awards:
+  - date: "2026-08-17"
+    title: "Friedman Family Fellowship, Dartmouth College"
+    awardLink: ""
+    recipient: "Adithya Pediredla"
+    result: "Fellowship"
+
+  # Awarded 2026-03-06 (Dean Carey's letter). Dated to match Friedman so it
+  # sorts right after it on /awards and stays in the homepage News top 3.
+  - date: "2026-08-17"
+    title: "Class of 1962 Junior Faculty Fellowship, Dartmouth College"
+    awardLink: ""
+    recipient: "Adithya Pediredla"
+    result: "Fellowship"
+
   - date: "2026-03-27"
     title: "Guarini Postdoc Research Day 2026"
     awardLink: ""

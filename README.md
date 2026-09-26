@@ -436,7 +436,7 @@ Manual News
 → Patents
 ```
 
-Only latest 3 entries are shown.
+Only latest 4 entries are shown.
 
 ---
 

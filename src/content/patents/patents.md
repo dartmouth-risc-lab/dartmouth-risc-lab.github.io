@@ -1,6 +1,18 @@
 ---
 title: "Patents"
 patents:
+  - date: "2026-05-01"
+    title: "MHz-Rate Optical Depth Imaging using Software-Defined Radios"
+    inventors: "Ramchander Rao Bhaskara, Dhawal Sirikonda, Omkar Shailendra Vengurlekar, Juhyeon Kim, Joseph P. Lazzaro, Suren Jayasuriya, Adithya Pediredla"
+    status: "Filed"
+    link: ""
+
+  - date: "2026-05-01"
+    title: "A Method for 3D Synthetic Aperture Sonar Reconstruction using Complex Spherical-Harmonic Scattering Fields"
+    inventors: "Omkar Vengurlekar, Adithya Pediredla, Suren Jayasuriya"
+    status: "Filed"
+    link: ""
+
   - date: "2025-08-10"
     title: "Underwater Optical Backscatter Communication Using Acousto-Optic Beam Steering"
     inventors: "Atul Rohit Agarwal, Dhawal Sirikonda, Atharv Agashe, Ziang Ren, Dinithi Silva-Sassaman, Charles Carver, Alberto Quattrini Li, Xia Zhou, Adithya Pediredla"

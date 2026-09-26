@@ -1,3 +1,9 @@
+### Dartmouth College
+
+- 2026 Friedman Family Fellowship.
+- 2026 Class of 1962 Junior Faculty Fellowship.
+- 2025 SIGGRAPH Best Paper Honorable Mention.
+
 ### Ph.D. — Rice University
 
 - 2019 Ralph Budd Award and Gold Medal for Best Ph.D. Engineering Thesis.

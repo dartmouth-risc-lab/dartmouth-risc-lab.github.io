@@ -1,7 +1,7 @@
 ---
 title: "Presentations"
 presentations:
-  - date: "2026-01-25"
+  - date: "2026-01"
     presenter: "Adithya Pediredla"
     title: "Wavefront Shaping at the Speed of Sound"
     venue: "Photonics West"
@@ -26,7 +26,7 @@ presentations:
     presenter: "Dhawal Sirikonda"
     title: "From Rendering to Imaging: Controlling Light with Sound"
     venue: "NESG 2026 - New England Symposium on Graphics"
-    location: "MIT, Cambrige, MA"
+    location: "MIT, Cambridge, MA"
     link: ""
 
   - date: "2025-09-10"

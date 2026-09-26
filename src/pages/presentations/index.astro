@@ -32,10 +32,12 @@ presentations.sort(
             )}
 
             <span class="text-sm opacity-70">
+              {/* "YYYY-MM" shows month and year only; UTC keeps the day from shifting in US time zones. */}
               {new Date(presentation.date).toLocaleDateString("en-US", {
+                timeZone: "UTC",
                 year: "numeric",
                 month: "long",
-                day: "numeric",
+                ...(/^\d{4}-\d{2}$/.test(presentation.date) ? {} : { day: "numeric" }),
               })}
             </span>
           </div>

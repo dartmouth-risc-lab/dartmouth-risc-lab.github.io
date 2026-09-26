@@ -13,7 +13,7 @@ authors:
     affiliation: ASU
   - name: Juhyeon Kim
     lab: true
-  - name: Joseph Lazarro
+  - name: Joseph Lazzaro
     affiliation: ASU
   - name: Suren Jayasuriya
     affiliation: ASU
