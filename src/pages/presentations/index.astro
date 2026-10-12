@@ -18,18 +18,20 @@ presentations.sort(
       {presentations.map((presentation) => (
         <article class="border-b border-border dark:border-darkmode-border pb-5">
           <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
-            {presentation.link ? (
-              <a
-                href={presentation.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-xl font-semibold hover:underline"
-              >
-                {presentation.title}
-              </a>
-            ) : (
-              <h2 class="text-xl font-semibold">{presentation.title}</h2>
-            )}
+            <h2 class="text-xl font-semibold">
+              {presentation.link ? (
+                <a
+                  href={presentation.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline"
+                >
+                  {presentation.title}
+                </a>
+              ) : (
+                presentation.title
+              )}
+            </h2>
 
             <span class="text-sm opacity-70">
               {/* "YYYY-MM" shows month and year only; UTC keeps the day from shifting in US time zones. */}

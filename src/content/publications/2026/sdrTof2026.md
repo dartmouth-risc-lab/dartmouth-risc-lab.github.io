@@ -1,6 +1,6 @@
 ---
 title: "SDR-ToF: Million Optical Depth Samples per Second Using Software-Defined Radio"
-date: 2026-12-01
+date: 2026-07-20
 image: "@assets/publications/teasers/2026/sdrTof2026.webp"
 keywords: ["Time-of-Flight / LiDAR"]
 venue: "ACM Transactions on Graphics (SIGGRAPH Asia 2026)"
