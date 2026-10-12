@@ -1,39 +1,57 @@
 <script is:inline data-astro-rerun>
-  const defaultTheme = "system";
+  // Dark is the default. A visitor's explicit choice from the switcher is
+  // stored under STORAGE_KEY and wins over the default. "system" follows the
+  // OS preference. The key was renamed from "theme" because the old script
+  // wrote "light" to storage on every load, so returning visitors would
+  // otherwise never see the new default.
+  const defaultTheme = "dark";
+  const STORAGE_KEY = "theme-preference";
 
-  function getTheme(defaultTheme) {
-    var darkMode = defaultTheme === "dark" ? true : false;
-    if (localStorage.getItem("theme") === "system") {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        darkMode = true;
-      }
-    } else if (localStorage.getItem("theme") === "dark") {
-      darkMode = true;
-    } else if (localStorage.getItem("theme") === "light") {
-      darkMode = false;
+  function readStoredTheme() {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch {
+      return null;
     }
-    return darkMode;
   }
 
-  function setTheme(darkMode) {
+  function getTheme(defaultTheme) {
+    var stored = readStoredTheme();
+    if (stored === "dark") return true;
+    if (stored === "light") return false;
+    if (stored === "system" || defaultTheme === "system") {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    return defaultTheme === "dark";
+  }
+
+  function setTheme(darkMode, persist) {
     // Update DOM
     darkMode
       ? document.documentElement.classList.add("dark")
       : document.documentElement.classList.remove("dark");
-    // Update localStorage
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
+    // Keep the switcher in sync so the first click actually toggles
+    document.querySelectorAll("[data-theme-switcher]").forEach((el) => {
+      el.checked = darkMode;
+    });
+    // Only remember an explicit choice made with the switcher
+    if (persist) {
+      try {
+        localStorage.setItem(STORAGE_KEY, darkMode ? "dark" : "light");
+      } catch {}
+    }
   }
 
   // This prevents flickering back to default theme before the page is fully loaded
-  setTheme(getTheme(defaultTheme));
+  setTheme(getTheme(defaultTheme), false);
 
   document.addEventListener("astro:page-load", () => {
-    setTheme(getTheme(defaultTheme));
+    setTheme(getTheme(defaultTheme), false);
     // Theme switcher
     var themeSwitch = document.querySelectorAll("[data-theme-switcher]");
     themeSwitch.forEach((el) => {
       el.addEventListener("change", (e) => {
-        setTheme(e.target.checked);
+        setTheme(e.target.checked, true);
       });
     });
   });
