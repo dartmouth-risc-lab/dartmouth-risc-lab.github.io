@@ -1,6 +1,34 @@
 ---
 title: "Presentations"
 presentations:
+  - date: "2026-10-09"
+    presenter: "Adithya Pediredla"
+    title: "Physics-based rendering for high-speed computational imaging"
+    venue: "CISE Seminar Series, Boston University"
+    location: "Boston, MA"
+    link: "https://www.bu.edu/cise/cise-seminar-adithya-pediredla-dartmouth-college/"
+
+  - date: "2026-08-10"
+    presenter: "Dhawal Sirikonda"
+    title: "Using Sound to Steer Light and Light to Measure Sound"
+    venue: "VASC Seminar 2026, Vision and Autonomous Systems Center, Robotics Institute, Carnegie Mellon University (CMU)"
+    location: "Pittsburgh, PA"
+    link: "https://www.ri.cmu.edu/event/using-sound-to-steer-light-and-light-to-measure-sound/"
+
+  - date: "2026-07-23"
+    presenter: "Adithya Pediredla"
+    title: "Physics-based rendering for high-speed computational imaging"
+    venue: "NASA Jet Propulsion Laboratory (JPL)"
+    location: "Pasadena, CA"
+    link: ""
+
+  - date: "2026-07-13"
+    presenter: "Dhawal Sirikonda, Ziyuan (Quinton) Qu, Ram Bhaskara, and Ankit Burudgunte"
+    title: "Controlling Light with Sound (Demo)"
+    venue: "ICCP 2026"
+    location: ""
+    link: ""
+
   - date: "2026-01"
     presenter: "Adithya Pediredla"
     title: "Wavefront Shaping at the Speed of Sound"

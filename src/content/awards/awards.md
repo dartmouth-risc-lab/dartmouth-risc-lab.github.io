@@ -1,6 +1,12 @@
 ---
 title: ""
 awards:
+  - date: "2026-09-30"
+    title: "IEEE Signal Processing Society Scholarship"
+    awardLink: ""
+    recipient: "Dhawal Sirikonda"
+    result: "Scholarship"
+
   - date: "2026-08-17"
     title: "Friedman Family Fellowship, Dartmouth College"
     awardLink: ""
