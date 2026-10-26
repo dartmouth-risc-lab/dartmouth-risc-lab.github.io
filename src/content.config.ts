@@ -212,6 +212,39 @@ const resources = defineCollection({
   }),
 });
 
+const software = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.{md,mdx}",
+    base: "./src/content/software",
+  }),
+  schema: ({ image }) =>
+    searchable.extend({
+      tagline: z.string().optional(),
+      featured: z.boolean().default(false),
+      order: z.number().default(100),
+      image: image().optional(),
+      imageAlt: z.string().default(""),
+      docs: z.string().url().optional(),
+      github: z.string().url().optional(),
+      pypi: z.string().url().optional(),
+      install: z.string().optional(),
+      requirements: z.string().optional(),
+      features: z.array(
+        z.object({
+          name: z.string(),
+          text: z.string(),
+        })
+      ).default([]),
+      papers: z.array(
+        z.object({
+          title: z.string(),
+          venue: z.string().optional(),
+          slug: z.string().optional(),
+        })
+      ).default([]),
+    }),
+});
+
 // Export collections
 export const collections = {
   about,
@@ -225,4 +258,5 @@ export const collections = {
   outreach,
   announcements,
   resources,
+  software,
 };

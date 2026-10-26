@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+
+const baseUrl = import.meta.env.BASE_URL;
+
+const featured = (await getCollection("software", ({ data }) => data.featured && !data.draft))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 1);
+---
+{featured.map(({ id, data }) => (
+  <section class="px-[1rem] md:px-[3rem] lg:px-[6rem] mt-6">
+    <div class="relative overflow-hidden rounded-2xl border border-indigo-300/40 bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 px-6 py-5 text-white shadow-lg">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(129,140,248,0.35),transparent_30%),radial-gradient(circle_at_85%_60%,rgba(34,211,238,0.25),transparent_30%)]"></div>
+
+      <div class="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-widest text-indigo-200">New software from the lab</p>
+          <p class="mt-1 text-2xl font-bold tracking-wide">{data.title}</p>
+          <p class="mt-1 max-w-3xl text-sm text-indigo-50/90">
+            {data.tagline}. Time-of-flight, structured light, Doppler, and event-camera simulation on NVIDIA Falcor with hardware ray tracing. Install with <code class="rounded bg-white/10 px-1.5 py-0.5">{data.install}</code>
+          </p>
+        </div>
+
+        <div class="flex shrink-0 flex-wrap gap-2">
+          <a
+            href={`${baseUrl}software#${id}`}
+            class="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-indigo-100"
+          >
+            Learn more
+          </a>
+          {data.docs && (
+            <a
+              href={data.docs}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-lg border border-white/50 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Docs
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+))}
